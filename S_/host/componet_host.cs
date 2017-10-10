@@ -21,9 +21,43 @@ public abstract class mode : host_componet
     //开始游戏
     public abstract void gameStart();
 
-    //总表
+    //cal-
     public LinkedList<IBe_Call> all_obj = new LinkedList<IBe_Call>();
+
+    //eve-
+    public Stack<EVE_> todoL = new Stack<EVE_>();
+    public void doskill(Stack<EVE_> L)
+    {
+        if (todoL.Count == 0)
+        {
+            todoL.Push(new E_Dtest(this));
+            while (L.Count != 0)
+            {
+                todoL.Push(L.Pop());
+            }
+            DoList();
+        }
+    }
+    private void DoList()
+    {
+        if (todoL.Count == 0) return;
+
+            EVE_ to = todoL.Pop();
+            to.do_();
+            DoList();
+
+    }
     
+}
+public class E_Dtest : EVE_
+{
+    private mode M;
+    public E_Dtest(mode mode) { M = mode; }
+    
+    public override void do_()
+    {
+        
+    }
 }
 //六角形地图
 public class mode_sixAngle : mode

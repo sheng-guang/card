@@ -23,30 +23,31 @@ public abstract class EVE_
 }
 public abstract class skill_
 {
-    
-
-    private SkillObj obj;public CardPlayer player { get { return obj.player; } }
-    public void link_load(SkillObj o) { obj = o; load(); }
-    //list-
-    public LinkedList<EVE_> L = new LinkedList<EVE_>();
-    //list-补充
-    public abstract void load();
+    //基础
     public T addEVE<T>()where T:EVE_,new()
     {
         T n = new T();n.link_load(this);
         return n;
     }
+    public void link_load(SkillObj o) { obj = o; load(); }
+
     //属性
     public abstract Skill_K1 k { get; }
-    //释放要求的数据个数
-    public virtual byte needdata { get { return 0; } }
-    public int nowOrderID;
-    //释放技能的fei
-    public abstract int needFei { get; }
-    public abstract Target_K1 k1 { get; }
-    public abstract Target_K2 k2 { get; }
+    private SkillObj obj;public CardPlayer player { get { return obj.player; } }
     
-    //通用测试
+    //list-L----------------------------------------------------------------
+    public LinkedList<EVE_> L = new LinkedList<EVE_>();
+    //list-填充
+    public abstract void load();
+
+    //条件-data-----------------------------------------------------------
+    public virtual byte needdata { get { return 0; } }
+    //条件-fei
+    public abstract int needFei { get; }
+    //条件-目标
+    public abstract Target_K1 k1 { get; }public abstract Target_K2 k2 { get; }
+
+    //测试-----通用----------------------------------------------------------
     public static  bool test_toDo(skill_ which,byte[]b)
     {
         //目标测试
@@ -61,10 +62,11 @@ public abstract class skill_
         //距离测试
         return true;
     }
-
-    //特殊使可重写测试
+    //测试-----自定义
     public virtual bool data_test(byte[] b)
     { return test_toDo(this,b); }
+    //释放-------------------------------------------------------------------------
+    public int nowOrderID;
     public virtual void do_(int ordernum)
     {
         nowOrderID = ordernum;
@@ -72,43 +74,27 @@ public abstract class skill_
     }
 }
 
+//造成1点伤害
 public class skill_1damage : skill_
 {
-    public override Skill_K1 k
-    {
-        get
-        {
-            return Skill_K1.objskill;
-        }
-    }
+    public override Skill_K1 k {get  { return Skill_K1.objskill; }  }
 
-    public override Target_K1 k1
-    {
-        get
-        {
-            return Target_K1.all;
-        }
-    }
+    public override Target_K1 k1  {get{return Target_K1.all;}}
 
-    public override Target_K2 k2
-    {
-        get
-        {
-            return Target_K2.all;
-        }
-    }
+    public override Target_K2 k2  { get  {return Target_K2.all;}}
 
-    public override int needFei
-    {
-        get
-        {
-            return 0;
-        }
-    }
+    public override int needFei {get{ return 0;} }
 
     public override void load()
     {
-        L.AddLast(addEVE<>();)
+        L.AddLast(addEVE<E_1damage>());
+    }
+}
+public class E_1damage : EVE_
+{
+    public override void do_()
+    {
+        
     }
 }
 //召唤11

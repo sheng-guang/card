@@ -14,6 +14,9 @@ public class obj_main : SkillObj
     public override int baseskillNum
     {get{ return 6;}}
 
+    public override Target_K2 obj_K
+    { get  {return Target_K2.hero;}}
+
     public override void C__()
     {}
 

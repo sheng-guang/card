@@ -34,13 +34,24 @@ public class GetEffect : componet_obj
 
 public class EVE_Player_Do : EVE_
 {//主要eve 准备攻击和攻击
-
+    public override void do_()
+    {
+        throw new NotImplementedException();
+    }
 }
 public class EVE_call : EVE_
 {
     //只有通知效果//可以触发trigger
+    public override void do_()
+    {
+        throw new NotImplementedException();
+    }
 }
 public class EVE_trigger : EVE_
 {
     //由通知触发//可以触发通知
+    public override void do_()
+    {
+        throw new NotImplementedException();
+    }
 }

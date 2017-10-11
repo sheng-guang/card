@@ -25,27 +25,26 @@ public abstract class mode : host_componet
     public LinkedList<IBe_Call> all_obj = new LinkedList<IBe_Call>();
 
     //eve-
-    public Stack<EVE_> todoL = new Stack<EVE_>();
-    public void doskill(Stack<EVE_> L)
+    public Stack<Queue<EVE_>> todoL = new Stack<Queue<EVE_>>(); 
+
+    public void doskill(Queue<EVE_> L)
     {
         if (todoL.Count == 0)
         {
-            todoL.Push(new E_Dtest(this));
-            while (L.Count != 0)
-            {
-                todoL.Push(L.Pop());
-            }
-            DoList();
+            todoL.Push(E_Dtest.test_L(this));//加入测试
+            todoL.Push(L);//加入技能
+            while(todoL.Count!=0)
+                Do_top_Q();
         }
     }
-    private void DoList()
+    private void Do_top_Q()
     {
-        if (todoL.Count == 0) return;
-
-            EVE_ to = todoL.Pop();
-            to.do_();
-            DoList();
-
+        Queue<EVE_> todo_Q = todoL.Peek();
+        while (todo_Q.Count != 0)
+        {
+            EVE_ todo_E = todo_Q.Peek();
+        }
+        todoL.Pop();
     }
     
 }
@@ -57,6 +56,12 @@ public class E_Dtest : EVE_
     public override void do_()
     {
         
+    }
+    public static Queue<EVE_> test_L(mode m)
+    {
+        var n = new Queue<EVE_>();
+        n.Enqueue(new E_Dtest(m));
+        return n;
     }
 }
 //六角形地图

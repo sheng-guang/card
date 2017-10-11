@@ -33,6 +33,7 @@ public abstract class mode : host_componet
         {
             todoL.Push(E_Dtest.test_L(this));//加入测试
             todoL.Push(L);//加入技能
+
             while(todoL.Count!=0)
                 Do_top_Q();
         }
@@ -40,14 +41,38 @@ public abstract class mode : host_componet
     private void Do_top_Q()
     {
         Queue<EVE_> todo_Q = todoL.Peek();
-        while (todo_Q.Count != 0)
+       if(todo_Q.Count != 0)
         {
-            EVE_ todo_E = todo_Q.Peek();
+            OpenNewqueue();
+            EVE_ todo_e = todo_Q.Dequeue();
+            todo_e.do_();
         }
         todoL.Pop();
     }
+    void OpenNewqueue()
+    {
+        todoL.Push(new Queue<EVE_>());
+        the_geter = todoL.Peek();
+    }
+    Queue<EVE_> the_geter;
+    public  void addEVE_(EVE_ e)
+    {
+        if (the_geter != null) the_geter.Enqueue(e);
+    }
+    public void addEVE(Queue<EVE_> eL)
+    {
+        if (the_geter != null)
+        {
+            while (eL.Count != 0)
+            {
+
+            }
+        }
+    }
     
 }
+
+
 public class E_Dtest : EVE_
 {
     private mode M;

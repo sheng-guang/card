@@ -10,48 +10,20 @@ public  class componet_obj{
 }
 public class GetEffect : componet_obj
 {
+
+    //获取这个单位作为目标
     public bool getthis(Skill_K1 k)
     {
         return true;
     }
     //atk
-    public void beATK1() { }
+   public void  getHPchange(Skill_K1 k,int number){
+        
+    }
+    public void  getBuff() {
+
+    }
+
     //card
     //buff
-}
-//public class Skills : componet_obj
-//{
-//    public void ATK_(int orderNUM) { }
-//    public void doSkill() { }
-//    public bool TestGetSkill(int whichSkill,byte []data)
-//    {
-//        return false;
-//    }
-//}
-
-
-
-
-public class EVE_Player_Do : EVE_
-{//主要eve 准备攻击和攻击
-    public override void do_()
-    {
-        throw new NotImplementedException();
-    }
-}
-public class EVE_call : EVE_
-{
-    //只有通知效果//可以触发trigger
-    public override void do_()
-    {
-        throw new NotImplementedException();
-    }
-}
-public class EVE_trigger : EVE_
-{
-    //由通知触发//可以触发通知
-    public override void do_()
-    {
-        throw new NotImplementedException();
-    }
 }

@@ -7,8 +7,10 @@ public class host_asker : MonoBehaviour {
     gameHost h;
     public int modeK;
     public test_player pReady;
+    public GameObject testplace;
 	void Start ()
     {
+        testplace.SetActive(false);
         h = new gameHost(modeK);//包含创建player
                                 //print(h.factory);
                                 //print(h.mode);

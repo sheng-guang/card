@@ -52,18 +52,22 @@ public abstract class SkillObj:IBe_Call
     public abstract int baseskillNum { get; }//主动技能数量
     //被动技能
     public virtual void beATK() { }//被攻击
-    public virtual void ontouchland() { }//触地
-    public virtual void ondestory() { }//亡语    
+    public virtual void aftertouchland() { }//触地
+    public virtual void afterdestory() { }//亡语    
     //组件  effect
     public GetEffect geteffect;
 
     //EVE call接口
     public virtual bool B_destory { get { return true; } }
-    public virtual bool Need_obj_call { get { return false; } }
-    public virtual bool Need_HP_call { get { return false; } }
-    public virtual bool Need_card_call { get { return false; } }
+    //public virtual bool Need_obj_call { get { return false; } }
+    //public virtual bool Need_HP_call { get { return false; } }
+    //public virtual bool Need_card_call { get { return false; } }
 
-    public virtual EVE_trigger Des_test() { return new e_obj_destory(); }
+    public virtual void Des_test() { }
+    //位运算mask
+    public abstract int needcall_K { get; }
+
+    
     public virtual void DoEstory() { }
     public abstract void C__();
 
@@ -80,7 +84,6 @@ public abstract class SkillObj:IBe_Call
         T newone = new T();newone.obj = this;
         return newone;
     }
-
 
     //工厂方法
     public static obj_main getmain()

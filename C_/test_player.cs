@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.UI;
 public class test_player : MonoBehaviour {
 
     public CardPlayer p;
@@ -14,10 +14,7 @@ public class test_player : MonoBehaviour {
         p.host.out_ += getinfo;
     }
 
-    public void giveorder(byte[]data,order_K k,int id1,int which)
-    {
-        p.getData_order(data, k, id1, which);
-    }
+
 
 
     public void getinfo(outinfo i)
@@ -26,8 +23,33 @@ public class test_player : MonoBehaviour {
     }
     private void  show(outinfo i)
     {
+        print(i.PID +"-"+ i.OID+"-"+i.k);
+        if (i.k == outinfo_K.obj_new) {
+            test_obj o = Instantiate(obj, obj_space.transform);
+            
+            o.link_load(this, i.OID);
 
-        print(i.PID +" "+ i.OID+"  "+i.k);
+        }
+        if (i.k == outinfo_K.obj_destory) { }
     }
 
+    public Dictionary<int, test_obj> id_obj = new Dictionary<int, test_obj>();
+
+    public test_obj obj;
+    public Transform obj_space;
+
+
+
+
+
+
+
+
+
+
+
+    public void giveorder(byte[]data,order_K k,int id1,int which)
+    {
+        p.getData_order(data, k, id1, which);
+    }
 }

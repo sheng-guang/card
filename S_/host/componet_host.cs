@@ -5,7 +5,6 @@ using System.Text;
 using UnityEngine;
 public abstract class host_componet
 {
-    
     //组件的主人
     public gameHost host;
     //组件
@@ -14,19 +13,21 @@ public abstract class host_componet
     //属性
     public Dictionary<int ,CardPlayer> player_L { get { return host.player_L; } }
 }
+//mode-
 public abstract class mode : host_componet
 {
-    //初始化
+    //mode-初始化
     public abstract void gameLoad_Link();
-    //开始游戏
+    //mode-开始游戏
     public abstract void gameStart();
 
-    //cal-
+    //call------------
     public LinkedList<IBe_Call> all_obj = new LinkedList<IBe_Call>();
+    //call------------
 
     //eve-
     public Stack<Queue<EVE_>> todoL = new Stack<Queue<EVE_>>(); 
-
+    //eve-全新玩家主动行为
     public void doskill(Queue<EVE_> L)
     {
         if (todoL.Count == 0)
@@ -38,24 +39,27 @@ public abstract class mode : host_componet
                 Do_top_Q();
         }
     }
+    //eve-结算顶端
     private void Do_top_Q()
     {
         Queue<EVE_> todo_Q = todoL.Peek();
        if(todo_Q.Count != 0)
         {
-            OpenNewqueue();
+            OpenNew_top_queue();
             EVE_ todo_e = todo_Q.Dequeue();
             todo_e.do_();
         }
-        todoL.Pop();
+        else todoL.Pop();
     }
-    void OpenNewqueue()
+    //eve-开启接收队列
+    void OpenNew_top_queue()
     {
         todoL.Push(new Queue<EVE_>());
         the_geter = todoL.Peek();
     }
+    //eve-接收新生成队列
     Queue<EVE_> the_geter;
-    public  void addEVE_(EVE_ e)
+    public void addEVE_(EVE_ e)
     {
         if (the_geter != null) the_geter.Enqueue(e);
     }
@@ -65,10 +69,11 @@ public abstract class mode : host_componet
         {
             while (eL.Count != 0)
             {
-
+                the_geter.Enqueue(eL.Dequeue());
             }
         }
     }
+
     
 }
 
@@ -89,7 +94,7 @@ public class E_Dtest : EVE_
         return n;
     }
 }
-//六角形地图
+//mode-六角形地图
 public class mode_sixAngle : mode
 {
     public override void gameLoad_Link()
@@ -114,16 +119,42 @@ public interface IDo_Call
 }
 public interface IBe_Call
 {
-    EVE_trigger Des_test();
+    //直接上传检测结果
+    void Des_test();
+    //bool B_destory { get; }
 
-
-    bool B_destory { get; }
     void DoEstory();
+    //接收call之后的处理
     void C__(/*Call c*/);
-
-    bool Need_obj_call { get; }//关于单位 召唤和消失
-    bool Need_HP_call { get; }//关于hp 受伤害
-    bool Need_card_call { get; }//关于卡牌使用
+    //用于位运算
+    int needcall_K { get; }
+}
+public enum EVE_call_K
+{
+    obj=2,card=4,HP_hit=8,
+}
+public class EVE_Player_Do : EVE_
+{//主要eve 准备攻击和攻击
+    public override void do_()
+    {
+        throw new NotImplementedException();
+    }
+}
+public class EVE_call : EVE_
+{
+    //只有通知效果//可以触发trigger
+    public override void do_()
+    {
+        throw new NotImplementedException();
+    }
+}
+public class EVE_trigger : EVE_
+{
+    //由通知触发//可以触发通知
+    public override void do_()
+    {
+        throw new NotImplementedException();
+    }
 }
 
 

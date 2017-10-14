@@ -4,18 +4,25 @@ using System.Linq;
 using System.Text;
 
 
-public abstract class SkillObj:IBe_Call
+public abstract class SkillObj
 {
     public CardPlayer player;public int OID;
     //0-加载obj
     public void link_load(CardPlayer p, int id)
     {
-        player = p;OID = id;
+        //基础
         geteffect = addcomponet<GetEffect>();
-        loadskillL(); loadskills();
+        //load
+        player = p;OID = id;
+        loadHP_ATK();
+        loadskillL(); loadskills();//注册通知列表//需补全
+
+        //完成
         player.ID_obj.Add(id, this);
-        //注册通知列表
-        //需补全
+    }
+    // 0-初始化数值
+    public virtual void loadHP_ATK() {
+        nowATK = baseATK;nowHP = baseHP;
     }
     //0-2初始化技能列表和普通攻击技能
     public virtual void loadskillL()
@@ -23,7 +30,7 @@ public abstract class SkillObj:IBe_Call
     //0-3加载其他技能
     public abstract void loadskills();
 
-    //9-测试之后立即使用
+    //9-----------------测试之后立即使用
     public virtual bool test_do_skills(int which, byte[] b)
     {
         bool to = true;
@@ -43,34 +50,20 @@ public abstract class SkillObj:IBe_Call
     }
 
     //属性
+    public abstract Target_K2 obj_K { get; }
     public abstract int baseHP { get; }//血量
     public abstract int baseATK { get; }//攻击
     public virtual bool canATK { get { return true; } }//能否普通攻击
-    public abstract Target_K2 obj_K { get; }
+
+    public int nowHP, nowATK;
     //组件  skill
     public skill_[] skills;
     public abstract int baseskillNum { get; }//主动技能数量
     //被动技能
-    public virtual void beATK() { }//被攻击
-    public virtual void aftertouchland() { }//触地
-    public virtual void afterdestory() { }//亡语    
+    //public virtual void beATK() { }//被攻击
+
     //组件  effect
     public GetEffect geteffect;
-
-    //EVE call接口
-    public virtual bool B_destory { get { return true; } }
-    //public virtual bool Need_obj_call { get { return false; } }
-    //public virtual bool Need_HP_call { get { return false; } }
-    //public virtual bool Need_card_call { get { return false; } }
-
-    public virtual void Des_test() { }
-    //位运算mask
-    public abstract int needcall_K { get; }
-
-    
-    public virtual void DoEstory() { }
-    public abstract void C__();
-
 
     //加载技能
     public T addskill<T>()where T:skill_ ,new ()
@@ -88,7 +81,6 @@ public abstract class SkillObj:IBe_Call
     //工厂方法
     public static obj_main getmain()
     { return new obj_main(); }
-
 }
 
 

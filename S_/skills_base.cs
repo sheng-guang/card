@@ -15,12 +15,15 @@ public enum Target_K2
 {
      hero=1,obj=2,building=4,all=63,
 }
+//-----------------------------------------------------------------------------------
 public abstract class EVE_
 {
     public void link_load(skill_ s) { skill = s; }
-    private skill_ skill;
+    public  skill_ skill;
+
     public abstract void do_();
 }
+//-----------------------------------------------------------------------------------
 public abstract class skill_
 {
     //基础
@@ -29,7 +32,7 @@ public abstract class skill_
         T n = new T();n.link_load(this);
         return n;
     }
-    public void link_load(SkillObj o) { obj = o; load(); }
+    public void link_load(SkillObj o) { obj = o; _load(); }
 
     //属性
     public abstract Skill_K1 k { get; }
@@ -38,7 +41,7 @@ public abstract class skill_
     //list-L----------------------------------------------------------------
     public LinkedList<EVE_> L = new LinkedList<EVE_>();
     //list-填充
-    public abstract void load();
+    public abstract void _load();
 
     //条件-data-----------------------------------------------------------
     public virtual byte needdata { get { return 0; } }
@@ -54,7 +57,7 @@ public abstract class skill_
         if (which.k1 != Target_K1.__)
         {
             
-            SkillObj o = which.obj.player.find_the(which.k1, which.k2, b[1], b[2]);
+            SkillObj o = which.obj.player.find_the(which.k1, which.k2, b[0], b[1]);
             if (o == null) return false;
             if (o.geteffect.getthis(which.k)) return false;
         }
@@ -67,62 +70,20 @@ public abstract class skill_
     { return test_toDo(this,b); }
     //释放-------------------------------------------------------------------------
     public int nowOrderID;
+    public SkillObj now_Target;
     public virtual void do_(int ordernum)
     {
+        if (k1 != Target_K1.__)
+        {
+            now_Target= player.find_the(k1, k2,player.orderID_Data[ordernum+1] , player.orderID_Data[ordernum + 2]);
+        }
         nowOrderID = ordernum;
         //上传到host  补全
     }
 }
 
-//造成1点伤害
-public class skill_1damage : skill_
-{
-    public override Skill_K1 k {get  { return Skill_K1.objskill; }  }
 
-    public override Target_K1 k1  {get{return Target_K1.all;}}
 
-    public override Target_K2 k2  { get  {return Target_K2.all;}}
-
-    public override int needFei {get{ return 0;} }
-
-    public override void load()
-    {
-        L.AddLast(addEVE<E_1damage>());
-    }
-}
-public class E_1damage : EVE_
-{
-    public override void do_()
-    {
-        
-    }
-}
-//召唤11
-public class skill_new11 : skill_
-{
-    public override Skill_K1 k { get { return Skill_K1.objskill; } }
-
-    public override Target_K1 k1
-    { get { return Target_K1.__; } }
-
-    public override Target_K2 k2
-    { get { return Target_K2.hero; } }
-
-    public override int needFei
-    { get { return 0; } }
-
-    public override void load()
-    {
-        L.AddLast(addEVE<e_new11>());
-    }
-}
-public class e_new11 : EVE_
-{
-    public override void do_()
-    {
-
-    }
-}
 //普通攻击
 public class skill_ATK : skill_
 {
@@ -131,7 +92,7 @@ public class skill_ATK : skill_
     public override Target_K1 k1 { get { return Target_K1.enemy; } }
     public override Target_K2 k2 { get { return Target_K2.all; } }
     public override Skill_K1 k { get { return Skill_K1.attack; } }
-    public override void load()
+    public override void _load()
     {
         L.AddLast(addEVE<E_atk>());
     }

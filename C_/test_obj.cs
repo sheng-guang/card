@@ -14,9 +14,13 @@ public class test_obj : MonoBehaviour {
         player.id_obj.Add(i, this);
         OID.text = obj_skill.OID.ToString();
         PID.text = obj_skill.player.ID.ToString();
-        HP.text = obj_skill.baseHP.ToString();
-        ATK.text = obj_skill.baseATK.ToString();
-        
+        upData_obj();
+    }
+    public void upData_obj()
+    {
+
+        HP.text = obj_skill.nowHP.ToString();
+        ATK.text = obj_skill.nowATK.ToString();
     }
 
 

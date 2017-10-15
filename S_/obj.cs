@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-
+using UnityEngine;
 
 public abstract class SkillObj
 {
@@ -35,17 +35,20 @@ public abstract class SkillObj
     {
         bool to = true;
         //检测&&技能是否存在&&检测是否可以使用
-        if (skills.Length < which || skills[which] == null||
-            skills[which].data_test(b) == false)
-        {  to = false; }
+        if(skills.Length < which || skills[which] == null)
+        { to = false; }
+        else if (skills[which].data_test(b) == false)
+        {Debug.Log("cantuse"); to = false; }
           
         
         if (to)
-        { player.host.output(new outinfo(player.ID, 2, outinfo_K.T));
+        {
+            Debug.Log("touseskill");
             //接收数据
-            int orderID = player.next_Orede_id;player.getdata(b); 
+            int orderID = player.next_Orede_id; 
+
             //运行技能
-            skills[which].do_(orderID);
+            skills[which].do_(orderID,b);
         }
         return to;
     }
@@ -115,7 +118,8 @@ public class GetEffect : componet_obj
         //
         //运行改变
         obj.nowHP += number;
-        output(new outinfo(obj.OID, obj.player.ID, outinfo_K.c_hp));
+        
+        output(new outinfo( obj.player.ID,obj.OID, outinfo_K.c_hp));
     }
     //get-
     public void getBuff()

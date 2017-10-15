@@ -33,23 +33,28 @@ public abstract class mode : host_componet
         if (todoL.Count == 0)
         {
             todoL.Push(E_Dtest.test_L(this));//加入测试
+            Debug.Log("+detest+skill");
             todoL.Push(L);//加入技能
 
-            while(todoL.Count!=0)
+            while (todoL.Count != 0)
+            {
                 Do_top_Q();
+            }
+                
         }
     }
     //eve-结算顶端
     private void Do_top_Q()
     {
         Queue<EVE_> todo_Q = todoL.Peek();
-       if(todo_Q.Count != 0)
+        if (todo_Q.Count != 0)
         {
             OpenNew_top_queue();
             EVE_ todo_e = todo_Q.Dequeue();
+            Debug.Log(todo_e);
             todo_e.do_();
         }
-        else todoL.Pop();
+        else { todoL.Pop();  }
     }
     //eve-开启接收队列
     void OpenNew_top_queue()
@@ -80,7 +85,7 @@ public abstract class mode : host_componet
 
 public class E_Dtest : EVE_
 {
-    private mode M;
+    public  mode M;
     public E_Dtest(mode mode) { M = mode; }
     
     public override void do_()

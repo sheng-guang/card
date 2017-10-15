@@ -15,6 +15,9 @@ public class test_obj : MonoBehaviour {
         OID.text = obj_skill.OID.ToString();
         PID.text = obj_skill.player.ID.ToString();
         upData_obj();
+        c_data1();
+        c_data2();
+        change_which_skill();
     }
     public void upData_obj()
     {
@@ -26,19 +29,29 @@ public class test_obj : MonoBehaviour {
     //ui------------------------------
     public Slider which_skill;
     public Text tskill;
+    public Text skill_Name;
     public void change_which_skill() {
         w_skill = (byte)which_skill.value;
-        tskill.text = (w_skill).ToString();
+        tskill.text = w_skill.ToString();
+        if (obj_skill.skills[w_skill] != null) skill_Name.text = obj_skill.skills[w_skill].ToString();
+        else skill_Name.text = "---";
     }
     public Slider d1,d2;
     public Text t1, t2;
     public void c_data1() {
+        
         _1 = (byte)d1.value;
-        t1.text = _1.ToString();
+        if (player.p.host.player_L.ContainsKey(_1))
+        {
+            t1.text = _1.ToString();
+        }
+        else t1.text = "---";
     }
     public void c_data2() {
         _2 = (byte)d2.value;
-        t2.text = _2.ToString();
+        if (player.p.host.player_L.ContainsKey(_1) && player.p.host.player_L[_1].ID_obj.ContainsKey(_2))
+        { t2.text = _2.ToString(); }
+        else t2.text = "---";
     }
     public byte w_skill, _1, _2;
     //运行技能

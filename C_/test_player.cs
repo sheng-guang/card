@@ -14,11 +14,9 @@ public class test_player : MonoBehaviour {
         p.host.out_ += getinfo;
     }
 
-
-
-
     public void getinfo(outinfo i)
     {
+        
         if (i.PID == ID) { show(i); }
     }
     private void  show(outinfo i)

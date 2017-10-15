@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using UnityEngine;
 public struct nextNUM
 {
     public  nextNUM(int n) { nextobj = 0;nextorder = 0;nextPlayer = 0; }
@@ -46,7 +47,7 @@ public class gameHost:host_base
         return newone;
     }
     public event output out_;
-    public void output(outinfo info) { out_(info); }
+    public void output(outinfo info) { out_(info);  }
 }
 
 public delegate void  output(outinfo info);

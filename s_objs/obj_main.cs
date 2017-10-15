@@ -15,7 +15,7 @@ public class obj_main : SkillObj
     public override void loadskills()
     {
         skills[1] = addskill<skill_1damage>();
-        skills[2] = addskill<skill_1damage>();
+        skills[2] = addskill<skill_new11>();
     }
 }
 //测试
@@ -90,6 +90,19 @@ public class e_new11 : EVE_
 {
     public override void do_()
     {
+        skill.player.get_P.newobj<obj_1_1>();
+    }
+}
+public class obj_1_1 : SkillObj
+{
+    public override Target_K2 obj_K { get { return Target_K2.obj; } }
+    public override int baseHP { get { return 1; } }
+    public override int baseATK { get { return 1; } }
+    public override int baseskillNum { get { return 1; } }
 
+
+    public override void loadskills()
+    {
+        
     }
 }

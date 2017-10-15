@@ -26,15 +26,24 @@ public class test_player : MonoBehaviour {
             test_obj o = Instantiate(obj, obj_space.transform);
             
             o.link_load(this, i.OID);
-
+            foreach(test_obj obj in objposs)
+            {
+                obj.upData_poss();
+            }
         }
-        if (i.k == outinfo_K.obj_destory) { }
+        if (i.k == outinfo_K.obj_destory) {
+            //
+            foreach (test_obj obj in objposs)
+            {
+                obj.upData_poss();
+            }
+        }
         if (i.k == outinfo_K.c_hp) { id_obj[i.OID].upData_obj(); }
         
     }
 
     public Dictionary<int, test_obj> id_obj = new Dictionary<int, test_obj>();
-
+    public List<test_obj> objposs = new List<test_obj>();
     public test_obj obj;
     public Transform obj_space;
 

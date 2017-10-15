@@ -1,8 +1,10 @@
-﻿using System.Collections;
+﻿
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 public class test_obj : MonoBehaviour {
+    public Animator anim;
     public test_player player;
     public int obj_id;
     public SkillObj obj_skill { get { return player.p.ID_obj[obj_id]; } }
@@ -12,6 +14,7 @@ public class test_obj : MonoBehaviour {
         transform.localPosition = new Vector3(0, 0, 0);
         player = p;obj_id = i;
         player.id_obj.Add(i, this);
+        player.objposs.Add(this);
         OID.text = obj_skill.OID.ToString();
         PID.text = obj_skill.player.ID.ToString();
         upData_obj();
@@ -19,13 +22,17 @@ public class test_obj : MonoBehaviour {
         c_data2();
         change_which_skill();
     }
+    //ui------------------------------
     public void upData_obj()
     {
-
         HP.text = obj_skill.nowHP.ToString();
         ATK.text = obj_skill.nowATK.ToString();
     }
 
+    public void upData_poss() {
+        int n = player.objposs.IndexOf(this);
+        anim.SetFloat("poss", n);
+    }
     //ui------------------------------
     public Slider which_skill;
     public Text tskill;
@@ -48,11 +55,15 @@ public class test_obj : MonoBehaviour {
         else t1.text = "---";
     }
     public void c_data2() {
-        _2 = (byte)d2.value;
+        int  _n=(byte)d2.value;
+        _2 = (byte)player.objposs[_n].obj_id;
         if (player.p.host.player_L.ContainsKey(_1) && player.p.host.player_L[_1].ID_obj.ContainsKey(_2))
         { t2.text = _2.ToString(); }
         else t2.text = "---";
     }
+    //ui------------------------------
+
+
     public byte w_skill, _1, _2;
     //运行技能
     public void give_order()

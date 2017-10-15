@@ -17,13 +17,14 @@ public abstract  class sPlayer_Board
     //host
     public gameHost host;
     public  int next_Orede_id { get { return host.nextorderID; }}
+    public int next_Obj_id { get { return host.nextobjID; } }
     //in
     public abstract void getData_order(byte[] data, order_K k, int ID1, int which);
-    public void getdata(byte[] data)
-    {
-        foreach (byte b in data)
-            orderID_Data.Add(next_Orede_id, b);
-    }
+    //public void getdata(byte[] data)
+    //{
+    //    foreach (byte b in data)
+    //        orderID_Data.Add(next_Orede_id, b);
+    //}
     public Dictionary<int, byte> orderID_Data = new Dictionary<int, byte>();
 
     //out
@@ -95,7 +96,13 @@ public class Pget_effect : componet_player
         output(new outinfo(player.ID, 0, outinfo_K.obj_new));
     }
     //新单位
-    public void newobj<T>() { }
+    public void newobj<T>()where T:SkillObj,new()
+    {
+        T newone = new T();
+        newone.link_load(player,player.next_Obj_id);
+        output(new outinfo(player.ID, newone.OID, outinfo_K.obj_new));
+            
+    }
 }
 
 //用技能

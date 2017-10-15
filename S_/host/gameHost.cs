@@ -5,7 +5,7 @@ using System.Text;
 using UnityEngine;
 public struct nextNUM
 {
-    public  nextNUM(int n) { nextobj = 0;nextorder = 0;nextPlayer = 0; }
+    public  nextNUM(int n) { nextobj = 1;nextorder = 0;nextPlayer = 1; }
     public int nextorder;
     public int nextPlayer;
     public int nextobj;

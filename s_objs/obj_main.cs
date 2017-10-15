@@ -14,7 +14,8 @@ public class obj_main : SkillObj
     { get  {return Target_K2.hero;}}
     public override void loadskills()
     {
-
+        skills[1] = addskill<skill_1damage>();
+        skills[2] = addskill<skill_1damage>();
     }
 }
 //测试

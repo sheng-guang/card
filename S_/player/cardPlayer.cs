@@ -65,13 +65,15 @@ public class CardPlayer:sPlayer_Board
     
     //获取命令
     public override void getData_order(byte[] data,order_K k,int ID1, int which)
-    {    
+    {
+        host.output(new outinfo(ID, 0, outinfo_K.getorder));
         //测试order是否正确
         if (k == order_K.usecard) {
             if (!cards.orderTest(data,ID1,which)) return;
         }
         else if (k == order_K.useskill) {
-            if (!pskills.orderTest_Do(data,ID1,which)) return;
+            if (!pskills.orderTest_Do(data, ID1, which)) {host. output(new outinfo(ID, 9, outinfo_K.F)); return;}
+            else { new outinfo(ID, 9, outinfo_K.T); return; }
         }
         else { return; }
     }
@@ -98,7 +100,9 @@ public class Pskills : componet_player
 {
     public bool orderTest_Do(byte [] b,int ID1,int which)
     {
-        if (ID_obj.ContainsKey(ID1) )return ID_obj[ID1].test_do_skills(which, b); 
+        if (ID_obj.ContainsKey(ID1)) {
+            
+            return ID_obj[ID1].test_do_skills(which, b); }
         else return false;
     }
 }

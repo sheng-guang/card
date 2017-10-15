@@ -36,11 +36,12 @@ public abstract class SkillObj
         bool to = true;
         //检测&&技能是否存在&&检测是否可以使用
         if (skills.Length < which || skills[which] == null||
-            skills[which].data_test(b)==false)
-            to = false; 
-
+            skills[which].data_test(b) == false)
+        {  to = false; }
+          
+        
         if (to)
-        {
+        { player.host.output(new outinfo(player.ID, 2, outinfo_K.T));
             //接收数据
             int orderID = player.next_Orede_id;player.getdata(b); 
             //运行技能
@@ -83,10 +84,48 @@ public abstract class SkillObj
     { return new obj_main(); }
 }
 
-
-
 //destory事件
 public class e_obj_destory : EVE_trigger
 {
 
+}
+
+
+
+//--------------------------------------------------------------------------------------------
+public class componet_obj
+{
+    //组件的主人
+    public SkillObj obj;
+    public GetEffect geteffect_ { get { return obj.geteffect; } }
+    public void output(outinfo info) { obj.player.host.output(info); }
+}
+public class GetEffect : componet_obj
+{
+
+    //获取这个单位作为目标
+    public bool getthis(Skill_K1 k)
+    {
+        return true;
+    }
+    //get-HP
+    public void getHPchange(Skill_K1 k, int number)
+    {
+        //报告观察者
+        //
+        //运行改变
+        obj.nowHP += number;
+        output(new outinfo(obj.OID, obj.player.ID, outinfo_K.c_hp));
+    }
+    //get-
+    public void getBuff()
+    {
+
+    }
+    public void getTrigger()
+    {
+
+    }
+    //card
+    //buff
 }

@@ -54,6 +54,7 @@ public delegate void  output(outinfo info);
 public enum outinfo_K
 {
     c_buff_L, c_hp,c_atk,c_skilln,c_card,obj_destory,obj_new,
+    getorder,T,F
 }
 public struct outinfo
 {

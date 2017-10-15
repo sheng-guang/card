@@ -23,7 +23,7 @@ public class test_obj : MonoBehaviour {
         ATK.text = obj_skill.nowATK.ToString();
     }
 
-
+    //ui------------------------------
     public Slider which_skill;
     public Text tskill;
     public void change_which_skill() {
@@ -41,7 +41,7 @@ public class test_obj : MonoBehaviour {
         t2.text = _2.ToString();
     }
     public byte w_skill, _1, _2;
-
+    //运行技能
     public void give_order()
     { byte[] n = new byte[2];
         n[0] = _1;

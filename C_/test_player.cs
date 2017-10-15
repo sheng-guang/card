@@ -31,6 +31,8 @@ public class test_player : MonoBehaviour {
 
         }
         if (i.k == outinfo_K.obj_destory) { }
+        if (i.k == outinfo_K.c_hp) { id_obj[i.OID].upData_obj(); }
+        
     }
 
     public Dictionary<int, test_obj> id_obj = new Dictionary<int, test_obj>();
@@ -51,5 +53,6 @@ public class test_player : MonoBehaviour {
     public void giveorder(byte[]data,order_K k,int id1,int which)
     {
         p.getData_order(data, k, id1, which);
+        
     }
 }

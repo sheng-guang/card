@@ -20,11 +20,12 @@ public class host_asker : MonoBehaviour {
         foreach (KeyValuePair<int ,CardPlayer> p0 in h.player_L)
         {
             var p= Instantiate(pReady);
-            p.link(p0.Value);
+            p.link(this,p0.Value);
         }
         //游戏开始
         h.mode.gameStart();
 	}
+    public Dictionary<int, test_player> id_player = new Dictionary<int, test_player>();
 	
 
 }

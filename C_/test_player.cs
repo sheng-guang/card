@@ -3,12 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 public class test_player : MonoBehaviour {
-
+    public host_asker asker;
     public CardPlayer p;
     public int ID;
-    public void link(CardPlayer p0)
+    public void link(host_asker a,CardPlayer p0)
     {
+        asker = a;
+        
         p = p0;ID = p.ID;
+        a.id_player.Add(ID, this);
         //print(p);
         //订阅p的事件
         p.host.out_ += getinfo;
@@ -42,6 +45,7 @@ public class test_player : MonoBehaviour {
         
     }
 
+    public Dictionary<int, test_player> id_player { get { return asker.id_player; } }
     public Dictionary<int, test_obj> id_obj = new Dictionary<int, test_obj>();
     public List<test_obj> objposs = new List<test_obj>();
     public test_obj obj;

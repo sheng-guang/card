@@ -56,7 +56,9 @@ public class test_obj : MonoBehaviour {
     }
     public void c_data2() {
         int  _n=(byte)d2.value;
-        _2 = (byte)player.objposs[_n].obj_id;
+        if (player.id_player.ContainsKey(_1) && player.id_player[_1].objposs.Count>_n)
+        {  _2 = (byte)player.id_player[_1].objposs[_n].obj_id;   }
+        else t2.text = "---";
         if (player.p.host.player_L.ContainsKey(_1) && player.p.host.player_L[_1].ID_obj.ContainsKey(_2))
         { t2.text = _2.ToString(); }
         else t2.text = "---";

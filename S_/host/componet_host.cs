@@ -22,7 +22,10 @@ public abstract class mode : host_componet
     public abstract void gameStart();
 
     //call------------
-    public LinkedList<IBe_Call> all_obj = new LinkedList<IBe_Call>();
+    public LinkedList<IObj_Be_Call> obj_call = new LinkedList<IObj_Be_Call>();
+
+    public LinkedList<IBe_Call> be_call = new LinkedList<IBe_Call>();
+
     //call------------
 
     //eve-
@@ -78,11 +81,7 @@ public abstract class mode : host_componet
             }
         }
     }
-
-    
 }
-
-
 public class E_Dtest : EVE_
 {
     public  mode M;
@@ -90,8 +89,13 @@ public class E_Dtest : EVE_
     
     public override void do_()
     {
-        
+        foreach(IObj_Be_Call obj in M.obj_call)
+        {//这里接收事件列表
+            //补全
+             obj.getcall();
+        }
     }
+    //工厂方法
     public static Queue<EVE_> test_L(mode m)
     {
         var n = new Queue<EVE_>();
@@ -117,22 +121,21 @@ public class mode_sixAngle : mode
         }
     }
 }
+//public interface IDo_Call{}
 
-public interface IDo_Call
-{
-
-}
 public interface IBe_Call
 {
-    //直接上传检测结果
-    void Des_test();
-    //bool B_destory { get; }
-
-    void DoEstory();
-    //接收call之后的处理
-    void C__(/*Call c*/);
     //用于位运算
     int needcall_K { get; }
+    //接收call之后的处理
+    void getcall(/*Call c*/);
+}
+public interface IObj_Be_Call{
+    void getcall();
+    //直接上传检测结果
+    bool Des_test();
+    //bool B_destory { get; }
+    void DoEstory();
 }
 public enum EVE_call_K
 {

@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using UnityEngine;
-
-public abstract class SkillObj
+//本体
+//----------------------------------------------------------------------------------------------
+public abstract class SkillObj:IObj_Be_Call
 {
     public CardPlayer player;public int OID;
     //0-加载obj
@@ -85,16 +86,21 @@ public abstract class SkillObj
     //工厂方法
     public static obj_main getmain()
     { return new obj_main(); }
+
+    public void getcall() { if (Des_test()) { DoEstory(); } }
+
+    public virtual void DoEstory()
+    {
+
+    }
+    public virtual bool Des_test()
+    {
+        if (nowHP <= 0) { return true; }
+        else return false;
+    }
 }
 
-//destory事件
-public class e_obj_destory : EVE_trigger
-{
-
-}
-
-
-
+//组件
 //--------------------------------------------------------------------------------------------
 public class componet_obj
 {
@@ -105,7 +111,6 @@ public class componet_obj
 }
 public class GetEffect : componet_obj
 {
-
     //获取这个单位作为目标
     public bool getthis(Skill_K1 k)
     {
@@ -118,15 +123,20 @@ public class GetEffect : componet_obj
         //
         //运行改变
         obj.nowHP += number;
-        
         output(new outinfo( obj.player.ID,obj.OID, outinfo_K.c_hp));
     }
+
     //get-
     public void getBuff()
     {
 
     }
     public void getTrigger()
+    {
+
+    }
+    //destory事件
+    public class e_obj_destory : EVE_trigger
     {
 
     }

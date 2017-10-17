@@ -23,10 +23,16 @@ public abstract class mode : host_componet
 
     //call------------
     public LinkedList<IObj_Be_Call> obj_call = new LinkedList<IObj_Be_Call>();
-
     public LinkedList<IBe_Call> be_call = new LinkedList<IBe_Call>();
+    //call------------do
+    public void decall(Call_ c)
+    {
+        foreach(IBe_Call b in be_call)
+        {
+            b.getcall(c);
+        }
+    }
 
-    //call------------
 
     //eve-
     public Stack<Queue<EVE_>> todoL = new Stack<Queue<EVE_>>(); 
@@ -36,7 +42,7 @@ public abstract class mode : host_componet
         if (todoL.Count == 0)
         {
             todoL.Push(E_Dtest.test_L(this));//加入测试
-            Debug.Log("+detest+skill");
+            //Debug.Log("+detest+skill");
             todoL.Push(L);//加入技能
 
             while (todoL.Count != 0)
@@ -142,7 +148,7 @@ public interface IBe_Call
     //用于位运算
     int needcall_K { get; }
     //接收call之后的处理
-    void getcall(/*Call c*/);
+    void getcall(Call_ c);
 }
 public interface IObj_Be_Call{
     //测试

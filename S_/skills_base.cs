@@ -5,7 +5,12 @@ using System.Text;
 using UnityEngine;
 public enum Skill_K1
 {
-    magic,attack,objskill,
+    magic,attack,objskill, tregger,
+}
+public enum eve_K1
+{
+    __,damage,newobj
+    //buff,
 }
 
 public enum Target_K1
@@ -19,30 +24,40 @@ public enum Target_K2
 //-----------------------------------------------------------------------------------
 public abstract class EVE_
 {
-    public void link_load(skill_ s) { skill = s; }
-    public  skill_ skill;
-
+    public virtual eve_K1 k { get { return eve_K1.__; } }
+    public void link_load(notestskill_ s)
+    {
+        skill = s;
+    }
+    public  notestskill_ skill;
     public abstract void do_();
 }
 //-----------------------------------------------------------------------------------
-public abstract class skill_
-{
-    //基础
-    public T addEVE<T>()where T:EVE_,new()
-    {
-        T n = new T();n.link_load(this);
-        return n;
-    }
-    public void link_load(SkillObj o) { obj = o; _load(); }
+public abstract class notestskill_ {
 
-    //属性
-    public abstract Skill_K1 k { get; }
-    private SkillObj obj;public CardPlayer player { get { return obj.player; } }
-    
+    public  SkillObj obj;public CardPlayer player { get { return obj.player; } }
+    public  void link_load(SkillObj o) { obj = o; link_(); _load(); }
+    public virtual void link_() { }
     //list-L----------------------------------------------------------------
     public Queue<EVE_> L = new Queue<EVE_>();
     //list-填充
     public abstract void _load();
+    //属性
+    public abstract Skill_K1 k { get; }
+
+    //基础
+    public T addEVE<T>() where T : EVE_, new()
+    {
+        T n = new T(); n.link_load(this);
+        return n;
+    }
+    //释放-------------------------------------------------------------------------
+    public int nowOrderID;
+    public byte[] nowByte_L;
+    public SkillObj now_Target;
+}
+public abstract class skill_:notestskill_
+{    
 
     //条件-data-----------------------------------------------------------
     public virtual byte needdata { get { return 0; } }
@@ -70,10 +85,7 @@ public abstract class skill_
     //测试-----自定义
     public virtual bool data_test(byte[] b)
     { return test_toDo(this,b); }
-    //释放-------------------------------------------------------------------------
-    public int nowOrderID;
-    public byte[] nowByte_L;
-    public SkillObj now_Target;
+
     public virtual void do_(int ordernum,byte[]b)
     {
         nowByte_L = b;
@@ -82,8 +94,7 @@ public abstract class skill_
             now_Target= player.find_the( nowByte_L[0],nowByte_L[1] );
         }
         nowOrderID = ordernum;
-        Debug.Log("skill数据上传");
-        //上传到host  补全
+        //上传到host 
         Queue<EVE_> copy = new Queue<EVE_>(L);
         player.host.mode.doskill(copy);
     }
@@ -106,8 +117,17 @@ public class skill_ATK : skill_
 }
 public class E_atk : EVE_
 {
+    public override eve_K1 k
+    {
+        get
+        {
+            return eve_K1.damage;
+        }
+    }
+
     public override void do_()
     {
 
     }
+
 }

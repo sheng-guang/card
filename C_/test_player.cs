@@ -24,7 +24,7 @@ public class test_player : MonoBehaviour {
     }
     private void  show(outinfo i)
     {
-        print(i.PID +"-"+ i.OID+"-"+i.k);
+        //print(i.PID +"-"+ i.OID+"-"+i.k);
         if (i.k == outinfo_K.obj_new) {
             test_obj o = Instantiate(obj, obj_space.transform);
             

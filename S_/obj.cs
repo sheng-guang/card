@@ -3,33 +3,74 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using UnityEngine;
+public enum d_test_sender
+{
+    hp_test,
+}
 //本体
 //----------------------------------------------------------------------------------------------
-public abstract class SkillObj:IObj_Be_Call
+public abstract class so_base : IObj_Be_Call
 {
     public CardPlayer player;public int OID;
+    //属性
+    public abstract Target_K2 obj_K { get; }
+    public abstract int baseHP { get; }//血量
+    public abstract int baseATK { get; }//攻击
+    public virtual bool canATK { get { return true; } }//能否普通攻击
+    public int nowHP, nowATK;
+    //组件  skill
+    public skill_[] skills;
+    public abstract int baseskillNum { get; }//主动技能数量
+
+    public abstract SkillObj obj{ get;}
+
+    //组件  effect
+    public GetEffect geteffect;
+    
+
+    public virtual bool Des_test(d_test_sender sender)
+    {
+        if (sender == d_test_sender.hp_test && nowHP <= 0) { return true; }
+        else return false;
+    }
+
+    public virtual void before_destory()
+    {
+        //删除所有链接和效果
+        player.ID_obj.Remove(OID);
+        player.host.mode.obj_call.Remove(this);
+    }
+
+    //工厂方法
+    public static obj_main getmain()
+    { return new obj_main(); }
+}
+//本体
+//----------------------------------------------------------------------------------------------
+public abstract class SkillObj:so_base
+{
+    public override SkillObj obj  { get { return this; } }
     //0-加载obj
     public void link_load(CardPlayer p, int id)
     {
-        //基础
-        geteffect = addcomponet<GetEffect>();
         //load
-        player = p;OID = id;
+        geteffect = addcomponet<GetEffect>();
+        player = p; OID = id;
         loadHP_ATK();
         loadskillL(); loadskills();//注册通知列表//需补全
-
-        //完成
+        //link
         player.ID_obj.Add(id, this);
+        player.host.mode.obj_call.AddLast(this);
     }
     // 0-初始化数值
-    public virtual void loadHP_ATK() {
-        nowATK = baseATK;nowHP = baseHP;
-    }
+    public virtual void loadHP_ATK()
+    { nowATK = baseATK;nowHP = baseHP; }
     //0-2初始化技能列表和普通攻击技能
     public virtual void loadskillL()
     { skills = new skill_[baseskillNum+1];skills[0] = addskill<skill_ATK>(); }
     //0-3加载其他技能
     public abstract void loadskills();
+
 
     //9-----------------测试之后立即使用
     public virtual bool test_do_skills(int which, byte[] b)
@@ -40,8 +81,7 @@ public abstract class SkillObj:IObj_Be_Call
         { to = false; }
         else if (skills[which].data_test(b) == false)
         {Debug.Log("cantuse"); to = false; }
-          
-        
+
         if (to)
         {
             Debug.Log("touseskill");
@@ -54,51 +94,21 @@ public abstract class SkillObj:IObj_Be_Call
         return to;
     }
 
-    //属性
-    public abstract Target_K2 obj_K { get; }
-    public abstract int baseHP { get; }//血量
-    public abstract int baseATK { get; }//攻击
-    public virtual bool canATK { get { return true; } }//能否普通攻击
-
-    public int nowHP, nowATK;
-    //组件  skill
-    public skill_[] skills;
-    public abstract int baseskillNum { get; }//主动技能数量
-    //被动技能
-    //public virtual void beATK() { }//被攻击
-
-    //组件  effect
-    public GetEffect geteffect;
 
     //加载技能
-    public T addskill<T>()where T:skill_ ,new ()
+    public T addskill<T>() where T : skill_, new()
     {
-        T newone = new T();newone.link_load(this);
+        T newone = new T(); newone.link_load(this);
+        return newone;
+    }
+    public T addcomponet<T>() where T : componet_obj, new()
+    {
+        T newone = new T(); newone.obj = this;
         return newone;
     }
 
-    public T addcomponet<T>()where T:componet_obj,new()
-    {
-        T newone = new T();newone.obj = this;
-        return newone;
-    }
-
-    //工厂方法
-    public static obj_main getmain()
-    { return new obj_main(); }
-
-    public void getcall() { if (Des_test()) { DoEstory(); } }
-
-    public virtual void DoEstory()
-    {
-
-    }
-    public virtual bool Des_test()
-    {
-        if (nowHP <= 0) { return true; }
-        else return false;
-    }
 }
+
 
 //组件
 //--------------------------------------------------------------------------------------------

@@ -67,7 +67,7 @@ public abstract class mode : host_componet
     }
     //eve-接收新生成队列
     Queue<EVE_> the_geter;
-    public void addEVE_(EVE_ e)
+    public void addEVE(EVE_ e)
     {
         if (the_geter != null) the_geter.Enqueue(e);
     }
@@ -89,13 +89,27 @@ public class E_Dtest : EVE_
     
     public override void do_()
     {
+        E_Dtest_report report = new E_Dtest_report();
         foreach(IObj_Be_Call obj in M.obj_call)
-        {//这里接收事件列表
-            //补全
-             obj.getcall();
+        {
+            if (obj.Des_test(d_test_sender.hp_test)) { report.l.Add(obj); }
+        }
+        M.addEVE(report);
+    }
+    //public struct poID {public poID(int a,int b) { pid = a;oid = b; }public int pid, oid; }
+
+    public class E_Dtest_report : EVE_
+    {
+        public List<IObj_Be_Call> l = new List<IObj_Be_Call>();
+        public override void do_()
+        {
+            foreach(IObj_Be_Call o in l)
+                o.obj.player.get_P.destoryOBJ(o.obj.OID);
         }
     }
+
     //工厂方法
+    //生产E_Dtest
     public static Queue<EVE_> test_L(mode m)
     {
         var n = new Queue<EVE_>();
@@ -131,11 +145,10 @@ public interface IBe_Call
     void getcall(/*Call c*/);
 }
 public interface IObj_Be_Call{
-    void getcall();
-    //直接上传检测结果
-    bool Des_test();
-    //bool B_destory { get; }
-    void DoEstory();
+    //测试
+    SkillObj obj { get; }
+    bool Des_test(d_test_sender sender);
+    void before_destory();
 }
 public enum EVE_call_K
 {

@@ -9,9 +9,6 @@ public enum order_K
     useskill,
 }
 
-
-
-
 public abstract  class sPlayer_Board
 {   
     //host
@@ -21,11 +18,8 @@ public abstract  class sPlayer_Board
     //in
     public abstract void getData_order(byte[] data, order_K k, int ID1, int which);
     //public void getdata(byte[] data)
-    //{
-    //    foreach (byte b in data)
-    //        orderID_Data.Add(next_Orede_id, b);
-    //}
-    public Dictionary<int, byte> orderID_Data = new Dictionary<int, byte>();
+    //{foreach (byte b in data) orderID_Data.Add(next_Orede_id, b);}
+    // public Dictionary<int, byte> orderID_Data = new Dictionary<int, byte>();
 
     //out
 }
@@ -60,6 +54,7 @@ public class CardPlayer:sPlayer_Board
             return host.player_L[pID].ID_obj[oID];
         else return null;
     }
+
     //组件
     public cards cards;
     public Pskills pskills;
@@ -79,14 +74,12 @@ public class CardPlayer:sPlayer_Board
         else { Debug.Log("orderFalse"); }
     }
 
-
-
     public T  addcomponet<T>()where T : componet_player, new()
     {
         T newone = new T(); newone.player = this; return newone;
     }
 }
-//被buff被影响
+//被影响
 public class Pget_effect : componet_player
 {
     //新英雄
@@ -100,8 +93,14 @@ public class Pget_effect : componet_player
     {
         T newone = new T();
         newone.link_load(player,player.next_Obj_id);
-        output(new outinfo(player.ID, newone.OID, outinfo_K.obj_new));
-            
+        output(new outinfo(player.ID, newone.OID, outinfo_K.obj_new));  
+    }
+    public void destoryOBJ(int oID)
+    {
+        SkillObj o = ID_obj[oID];
+        o.before_destory();
+        output(new outinfo(player.ID, o.OID, outinfo_K.obj_destory));
+        o = null;
     }
 }
 

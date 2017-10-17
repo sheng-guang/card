@@ -73,5 +73,8 @@ public class test_obj : MonoBehaviour {
         n[0] = _1;
         n[1] = _2;
         player.giveorder(n, order_K.useskill, obj_id, w_skill);
+        //刷新
+        c_data1();
+        c_data2();
     }
 }

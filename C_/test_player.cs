@@ -35,7 +35,10 @@ public class test_player : MonoBehaviour {
             }
         }
         if (i.k == outinfo_K.obj_destory) {
-            //
+            test_obj o = id_obj[i.OID];
+            objposs.Remove(o);
+            id_obj.Remove(o.obj_id);
+            Destroy(o.gameObject);
             foreach (test_obj obj in objposs)
             {
                 obj.upData_poss();

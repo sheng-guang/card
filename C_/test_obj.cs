@@ -11,28 +11,46 @@ public class test_obj : MonoBehaviour {
     public Text PID, OID, HP, ATK;
      public void link_load(test_player  p,int i)
     {
-        transform.localPosition = new Vector3(0, 0, 0);
+        //data
+        
         player = p;obj_id = i;
         player.id_obj.Add(i, this);
         player.objposs.Add(this);
+        player.objpossD.Add(this);
+        //ui
+        transform.localPosition = new Vector3(0, 0, 0);
         OID.text = obj_skill.OID.ToString();
         PID.text = obj_skill.player.ID.ToString();
-        upData_obj();
+
+        D_data();
+        D_poss();
+
         c_data1();
         c_data2();
         change_which_skill();
     }
-    //ui------------------------------
-    public void upData_obj()
-    {
-        HP.text = obj_skill.nowHP.ToString();
-        ATK.text = obj_skill.nowATK.ToString();
-    }
 
-    public void upData_poss() {
-        int n = player.objposs.IndexOf(this);
-        anim.SetFloat("poss", n);
+    //data
+    public int nowHP, nowATK;
+    public void D_data()
+    {
+        nowHP = obj_skill.nowHP;
+        nowATK = obj_skill.nowATK;
     }
+    public void U_Data()
+    {
+        HP.text = nowHP.ToString();
+        ATK.text = nowATK.ToString();
+    }
+    //poss
+    int poss;
+    public void D_poss() {
+        poss = player.objpossD.IndexOf(this);}
+    public void U_poss()
+    {
+        int p = player.objposs.IndexOf(this);
+        anim.SetFloat("poss", p); }
+
     //ui------------------------------
     public Slider which_skill;
     public Text tskill;
@@ -55,16 +73,14 @@ public class test_obj : MonoBehaviour {
         else t1.text = "---";
     }
     public void c_data2() {
-        int  _n=(byte)d2.value;
-        if (player.id_player.ContainsKey(_1) && player.id_player[_1].objposs.Count>_n)
-        {  _2 = (byte)player.id_player[_1].objposs[_n].obj_id;   }
-        else t2.text = "---";
-        if (player.p.host.player_L.ContainsKey(_1) && player.p.host.player_L[_1].ID_obj.ContainsKey(_2))
-        { t2.text = _2.ToString(); }
-        else t2.text = "---";
+        int _n = (byte)d2.value;
+        if (player.id_player.ContainsKey(_1) && player.id_player[_1].objpossD.Count > _n)
+        { _2 = (byte)player.id_player[_1].objpossD[_n].obj_id; t2.text = _2.ToString(); }
+        else  t2.text = "---"; 
+        //if (player.p.host.player_L.ContainsKey(_1) && player.p.host.player_L[_1].ID_obj.ContainsKey(_2))
+        //{ t2.text = _2.ToString(); }
     }
     //ui------------------------------
-
 
     public byte w_skill, _1, _2;
     //运行技能

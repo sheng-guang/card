@@ -22,9 +22,37 @@ public class host_asker : MonoBehaviour {
             var p= Instantiate(pReady);
             p.link(this,p0.Value);
         }
+        //订阅p的事件
+        h.out_ += getinfo;
         //游戏开始
         h.mode.gameStart();
 	}
+    public void getinfo(outinfo i)
+    {
+        id_player[i.PID].upadta_num(i);
+        infoL.Enqueue(i);
+    }
+
+    public void doinfo()
+    {
+        if (infoL.Count != 0)
+        {
+            outinfo to = infoL.Dequeue();
+            id_player[to.PID].showINui(to);
+        }
+    }
+    [Range(1, 20)]
+    public int fixonce;
+    int fix=0;
+    public void FixedUpdate()
+    {
+        if (fix++ > fixonce)  fix = 0;  else return; 
+
+        doinfo();
+    }
+
+    public Queue<outinfo> infoL = new Queue<outinfo>();
+
     public Dictionary<int, test_player> id_player = new Dictionary<int, test_player>();
 	
 

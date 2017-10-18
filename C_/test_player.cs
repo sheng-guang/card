@@ -12,27 +12,45 @@ public class test_player : MonoBehaviour {
         
         p = p0;ID = p.ID;
         a.id_player.Add(ID, this);
-        //print(p);
-        //订阅p的事件
-        p.host.out_ += getinfo;
+    }
+    public void upadta_num(outinfo i)
+    {
+        if (i.k == outinfo_K.obj_new)
+        {
+            test_obj o = Instantiate(obj, obj_space.transform);
+            o.link_load(this, i.OID);
+            foreach (test_obj obj in objposs)
+            {
+                obj.D_poss();
+            }
+            o.gameObject.SetActive(false);
+        }
+        if (i.k == outinfo_K.obj_destory)
+        {
+            test_obj o = id_obj[i.OID];
+            objpossD.Remove(o);
+            foreach (test_obj obj in objposs)
+            {
+                obj.D_poss();
+            }
+        }
+        if (i.k == outinfo_K.c_hp)
+        {
+
+            id_obj[i.OID].D_data();
+        }
     }
 
-    public void getinfo(outinfo i)
+    public  void  showINui(outinfo i)
     {
-        
-        if (i.PID == ID) { show(i); }
-    }
-    private void  show(outinfo i)
-    {
-        //print(i.PID +"-"+ i.OID+"-"+i.k);
-        if (i.k == outinfo_K.obj_new) {
-            test_obj o = Instantiate(obj, obj_space.transform);
-            
-            o.link_load(this, i.OID);
+        if (i.k == outinfo_K.obj_new)
+        {
             foreach(test_obj obj in objposs)
             {
-                obj.upData_poss();
+                obj.U_poss();
             }
+            id_obj[i.OID].gameObject.SetActive(true);
+            id_obj[i.OID].U_Data();
         }
         if (i.k == outinfo_K.obj_destory) {
             test_obj o = id_obj[i.OID];
@@ -41,16 +59,19 @@ public class test_player : MonoBehaviour {
             Destroy(o.gameObject);
             foreach (test_obj obj in objposs)
             {
-                obj.upData_poss();
+                obj.U_poss();
             }
         }
-        if (i.k == outinfo_K.c_hp) { id_obj[i.OID].upData_obj(); }
-        
+        if (i.k == outinfo_K.c_hp) {
+
+            id_obj[i.OID].U_Data();
+        }
     }
 
     public Dictionary<int, test_player> id_player { get { return asker.id_player; } }
     public Dictionary<int, test_obj> id_obj = new Dictionary<int, test_obj>();
     public List<test_obj> objposs = new List<test_obj>();
+    public List<test_obj> objpossD = new List<test_obj>();
     public test_obj obj;
     public Transform obj_space;
 

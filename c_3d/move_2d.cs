@@ -1,23 +1,31 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class move_2d : MonoBehaviour {
+public class move_2d : camera_force_tar {
 
 
 	void Start () {
-        tar_position = p.position;
     }
 
-    public Transform p;
-    Vector3 tar_position ;
-    Vector3 wasd = new Vector3();
-	void Update () {
-        wasd = Vector3.zero;
-        if (Input.GetKeyDown(KeyCode.W)) { wasd.z += 1; }
-        if (Input.GetKeyDown(KeyCode.A)) { wasd.x -= 1; }
-        if (Input.GetKeyDown(KeyCode.S)) { wasd.z -= 1; }
-        if (Input.GetKeyDown(KeyCode.D)) { wasd.x += 1; }
-        if (wasd.magnitude > 1) { wasd.Normalize(); }
+    public Transform point;
+    Vector3 tar_position { get { return point.position; } }
+
+    public override Transform Tar
+    {  get {  return point;  }}
+    [Range(0,20)]
+    public float v;
+    public virtual void Update () {
+        if (!input_txt.wasd) { return; } 
+        Vector3 cameraF =  input_txt.CameraForward_3.forward;
+        cameraF.Scale(new Vector3(1, 0, 1));
+        
+        cameraF = cameraF * input_txt.ws + input_txt.CameraForward_3.right * input_txt.ad;
+
+        cameraF.Normalize();
+        
+        point.position += cameraF*Time.deltaTime*v;
+
     }
 }

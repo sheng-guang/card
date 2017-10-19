@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class _0_camera : MonoBehaviour {
+    public static _0_camera _0;
+    void Awake() { _0 = this; }
+    
     [Header("旋转")]
     public bool useful1 = true;
     [Tooltip("旋转速度")]public float rospeed = 4;
@@ -14,8 +17,8 @@ public class _0_camera : MonoBehaviour {
     public float max = -10, min = 1;
     public float vinput = 50, vreal = 20;
     public Vector3 fix;
-
     float targetz, nowz;
+    
 
     void Start()
     {
@@ -77,7 +80,7 @@ public class _0_camera : MonoBehaviour {
     {
         if (++fixO > fixOnce)
         {
-            dist = Tar_position + new Vector3(0, Fixy, 0) - transform.position;
+            dist = Tar_position + new Vector3(0, Fixy, 0) - rg.transform.position;
             if (!once && dist.magnitude >= 8) { fixOnce = 2; once = true; }
             else if (++change0 > 50) { fixOnce = 10; change0 = 1; once = false; }
             float ben_pingfang = beg - dist.magnitude * dist.magnitude * beg_;
@@ -88,7 +91,7 @@ public class _0_camera : MonoBehaviour {
         //force.torque =roTarget.eulerAngles - transform.eulerAngles;
     }
 
-    public void ChangeTarget(Transform NewOne)
+    public void ChangeTarget(camera_force_tar NewOne)
     {
         Target = NewOne;
     }
@@ -98,11 +101,15 @@ public class _0_camera : MonoBehaviour {
     }
     [Header("目标")]
     public Transform tar_cam;
-    public Transform Target;
-    public Vector3 Tar_position { get { return Target != null ? Target.position : Vector3.zero; } }
+    public camera_force_tar Target;
+    public Vector3 Tar_position { get { return Target != null ? Target.Tar.position : Vector3.zero; } }
     public Transform firstro;
     public Quaternion first_rotation { get { return firstro != null ? firstro.rotation : Quaternion.identity; } }
 
+}
+public abstract class camera_force_tar:MonoBehaviour
+{
+   public abstract  Transform Tar { get; }
 }
 
 

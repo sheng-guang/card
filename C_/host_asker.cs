@@ -38,7 +38,14 @@ public class host_asker : MonoBehaviour {
         if (infoL.Count != 0)
         {
             outinfo to = infoL.Dequeue();
+            outinfo_K k = to.k;
             id_player[to.PID].showINui(to);
+            if(k== outinfo_K.obj_destory||k== outinfo_K.c_hp||k== outinfo_K.obj_new)
+                while (infoL.Count!=0 &&infoL.Peek().k == k)
+                {
+                    to = infoL.Dequeue();
+                    id_player[to.PID].showINui(to);
+                }
         }
     }
     [Range(1, 20)]

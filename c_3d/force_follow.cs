@@ -5,40 +5,24 @@ using UnityEngine;
 
 public class force_follow : move_2d
 {
-    
+    //接口
     public override Transform Tar
     { get { return rig.transform; } }
     //public override void Update()
-    //{
-    //    base.Update();
-
-    //}
+    //{  //    base.Update(); //}
     [Header("跟随-------------------")]
     public float Fixy;
-    public float forcemode = 120;
-
-    [Tooltip("倍数*距离平方")]
-    public float beg = 40, en = 20, beg_ = 2;//倍数*距离平方
-    [Range(1, 20)]
-    public int fixOnce = 1;
-    int fixO = 1, change0 = 1;
-    Vector3 dist;
+    [Range(0,100)]
+    public float forceL=2;
     public Rigidbody rig;
-    public ConstantForce force;
-    bool once;
+    //距离
+    Vector3 D { get { return point.position - rig.position + new Vector3(0, Fixy, 0); } }
+
     void FixedUpdate()
     {
-        if (++fixO > fixOnce)
-        {
-            dist = point.position + new Vector3(0, Fixy, 0) - rig. transform.position;//距离
-            if (!once && dist.magnitude >= 8) { fixOnce = 2; once = true; }
-            else if (++change0 > 50) { fixOnce = 10; change0 = 1; once = false; }
-            //float ben_pingfang = beg - dist.magnitude * dist.magnitude * beg_;
-            //rig.drag = ben_pingfang > en ? ben_pingfang : en;
-            rig.drag = (-100 * dist.magnitude + 100)>=1? (-100 * dist.magnitude + 100) :10 ;//y=-kx+b
-            force.force = dist.magnitude<=2? dist* forcemode:forcemode*dist.normalized*2;
-            fixO = 1;
-        }
+
+        //if (forceL > 100) ;
+        rig.velocity = D*forceL;
         //force.torque =roTarget.eulerAngles - transform.eulerAngles;
     }
 }

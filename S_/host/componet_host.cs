@@ -123,24 +123,7 @@ public class E_Dtest : EVE_
         return n;
     }
 }
-//mode-六角形地图
-public class mode_sixAngle : mode
-{
-    public override void gameLoad_Link()
-    {
-        factory.addHostPlayer();
-        factory.addplayer();
-        factory.addplayer();
-    }
 
-    public override void gameStart()
-    {
-        foreach( KeyValuePair<int ,CardPlayer> p in player_L)
-        {
-            p.Value.get_P.newMainobj();//创建英雄
-        }
-    }
-}
 //public interface IDo_Call{}
 
 public interface IBe_Call

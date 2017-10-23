@@ -11,7 +11,7 @@ public struct nextNUM
     public int nextobj;
 }
 //分开一些属性方便看
-public class host_base
+public class host_base_
 {
     private nextNUM next=new nextNUM(0);
     public int nextorderID { get { return next.nextorder++; } }
@@ -19,7 +19,7 @@ public class host_base
     public int nextpID { get { return next.nextPlayer++; } }
 }
 
-public class gameHost:host_base
+public class gameHost:host_base_
 {
     //新建一个host
     public gameHost(int modeK)

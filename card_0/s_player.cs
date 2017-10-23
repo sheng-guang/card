@@ -2,25 +2,27 @@
 using System.Collections;
 using System.Collections.Generic;
 
-public class Gr_base : layer_base
+public abstract class Gr_base : layer_base
 {
-    public override void add_in_systerm()
+    private Host upHost;
+    public override Host host()
     {
-        throw new NotImplementedException();
+        return upHost;
     }
 
-    public override mini find_mini(int ID)
-    {
-        return null;
-    }
+    public List<int> IDmini = new List<int>();
 }
 public class mini_G:Gr_base
 {
+    public override mini_G Group()  {  return this; }
 
-    public host upHost;
+
+
+
     public void doCard() { }
     public void Be()
     {
 
     }
+
 }

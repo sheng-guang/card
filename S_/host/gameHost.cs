@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using UnityEngine;
+
 public struct nextNUM
 {
     public  nextNUM(int n) { nextobj = 1;nextorder = 0;nextPlayer = 1; }

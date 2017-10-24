@@ -56,7 +56,7 @@ public abstract class notestskill_ {
     public byte[] nowByte_L;
     public SkillObj now_Target;
 }
-public abstract class skill_:notestskill_
+public abstract class skill_old:notestskill_
 {    
 
     //条件-data-----------------------------------------------------------
@@ -67,7 +67,7 @@ public abstract class skill_:notestskill_
     public abstract Target_K1 k1 { get; }public abstract Target_K2 k2 { get; }
 
     //测试-----通用----------------------------------------------------------
-    public static  bool test_toDo(skill_ which,byte[]b)
+    public static  bool test_toDo(skill_old which,byte[]b)
     {
         //目标测试
         if (which.k1 != Target_K1.__)
@@ -103,7 +103,7 @@ public abstract class skill_:notestskill_
 
 
 //普通攻击
-public class skill_ATK : skill_
+public class skill_ATK : skill_old
 {
     public override int needFei { get { return 0; } }
 

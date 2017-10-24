@@ -26,7 +26,7 @@ public class obj_main : SkillObj
 }
 
 //造成1点伤害
-public class skill_1damage : skill_
+public class skill_1damage : skill_old
 {
     public override Skill_K1 k {get  { return Skill_K1.objskill; }  }
 
@@ -53,7 +53,7 @@ public class E_1damage : EVE_
     }
 }
 //aoe1
-public class skill_aoe_1damage : skill_
+public class skill_aoe_1damage : skill_old
 {
     public override Skill_K1 k
     { get {return Skill_K1.objskill; } }
@@ -89,7 +89,7 @@ public class e_aoe1 : EVE_
     }
 }
 //召唤11
-public class skill_new11 : skill_
+public class skill_new11 : skill_old
 {
     public override Skill_K1 k { get { return Skill_K1.objskill; } }
 

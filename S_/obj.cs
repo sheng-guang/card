@@ -19,7 +19,7 @@ public abstract class so_base : IObj_Be_Call
     public virtual bool canATK { get { return true; } }//能否普通攻击
     public int nowHP, nowATK;
     //组件  skill
-    public skill_[] skills;
+    public skill_old[] skills;
     public abstract int baseskillNum { get; }//主动技能数量
     public abstract SkillObj obj{ get;}
 
@@ -69,7 +69,7 @@ public abstract class SkillObj:so_base
     { nowATK = baseATK;nowHP = baseHP; }
     //0-2初始化技能列表和普通攻击技能
     public virtual void loadskillL()
-    { skills = new skill_[baseskillNum+1];skills[0] = addskill<skill_ATK>(); }
+    { skills = new skill_old[baseskillNum+1];skills[0] = addskill<skill_ATK>(); }
     //0-3加载其他技能
     public abstract void loadskills();
     //0-4加载触发技能
@@ -104,7 +104,7 @@ public abstract class SkillObj:so_base
         T newone = new T();newone.link_load(this);
         return newone;
     }
-    public T addskill<T>() where T : skill_, new()
+    public T addskill<T>() where T : skill_old, new()
     {
         T newone = new T(); newone.link_load(this);
         return newone;

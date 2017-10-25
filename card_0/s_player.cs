@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-
-public abstract class Gr_base : layer_base
+public class Mini_G:layer_base
 {
+//public abstract class Gr_base : layer_base
+//{
     public override void link_load(Host h){
         upHost = h; ID = host().NextGID;
         load(); }
@@ -13,19 +14,17 @@ public abstract class Gr_base : layer_base
     public List<int> IDmini = new List<int>();
     public bool haveMini(int ID) { if (host().IDmini.ContainsKey(ID) && IDmini.Contains(ID)) return true; else return false; }
     public bool haveSkill(int ID,int which) { if (haveMini(ID) && find_mini(ID).haveskill(which)) return true; else return false; }
-    public bool skillCando(int ID,int which,List<byte> d) { if(haveSkill(ID,which)&&find_mini(ID).skills[which].test_data(d)) return true; else return false; }
+    public bool skillCando(int ID,int which,List<byte> d) { if(haveSkill(ID,which)&&find_mini(ID).skills[which].test_data(this,d)) return true; else return false; }
     public cardGroup cards;//运行之后为空需补全
     public bool havecard(int which) {if(cards.List.Count>which) return true; else return false; }
-    public bool cardCando(int which, List<byte> d) {if(havecard(which)&&cards.List[which].test_data(d)) return true; else return false; }
-
-
-}
-public class Mini_G:Gr_base
-{
+    public bool cardCando(int which, List<byte> d) {if(havecard(which)&&cards.List[which].test_data(this,d)) return true; else return false; }
+//}
+//public class Mini_G:Gr_base
+//{
     public override Mini_G Group()  {  return this; }
     public override void load()
     {
-        
+        cards= new cardGroup();
     }
     //加入随从
     public T addmini<T>() where T : Mini, new()
@@ -36,7 +35,6 @@ public class Mini_G:Gr_base
         Group().IDmini.Add(newone.ID);
         return newone;
     }
-    
 
     public void getOrder(int MID,int Which, List<byte> data) { if (testOrder(MID,Which, data)) { doOrder(MID, Which, data); } }
     public bool testOrder(int MID,int Which,List<byte> d)
@@ -66,5 +64,8 @@ public class cardGroup
 }
 public class card_ : skill_
 {
-
+    public override void load()
+    {
+        
+    }
 }

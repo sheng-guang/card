@@ -47,9 +47,9 @@ public  class Host:host_base
     public void loadGame_waitLink() { }
     public void gameStart() { }
     //使用技能
-    public void Doskill() { }
+    public void DoChange() { }
     public void Docall() { }
-    public void Dotrigger() { }
+    public void AddtriggerChange() { }
 
 
 }

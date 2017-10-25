@@ -4,7 +4,10 @@ using System.Collections.Generic;
 
 public abstract class Gr_base : layer_base
 {
-    private Host upHost;//为空需补全
+    public override void link_load(Host h){
+        upHost = h; ID = host().NextGID;
+        load(); }
+    private Host upHost;
     public override Host host(){ return upHost; }
 
     public List<int> IDmini = new List<int>();
@@ -14,13 +17,28 @@ public abstract class Gr_base : layer_base
     public cardGroup cards;//运行之后为空需补全
     public bool havecard(int which) {if(cards.List.Count>which) return true; else return false; }
     public bool cardCando(int which, List<byte> d) {if(havecard(which)&&cards.List[which].test_data(d)) return true; else return false; }
+
+
 }
 public class Mini_G:Gr_base
 {
     public override Mini_G Group()  {  return this; }
+    public override void load()
+    {
+        
+    }
+    //加入随从
+    public T addmini<T>() where T : Mini, new()
+    {
+        T newone = new T();
+        newone.link_load(this);
+        host().IDmini.Add(newone.ID, newone);
+        Group().IDmini.Add(newone.ID);
+        return newone;
+    }
+    
 
     public void getOrder(int MID,int Which, List<byte> data) { if (testOrder(MID,Which, data)) { doOrder(MID, Which, data); } }
-
     public bool testOrder(int MID,int Which,List<byte> d)
     {
         if (MID >= 0) { if (skillCando(MID, Which, d)) return true; }
@@ -38,6 +56,7 @@ public class Mini_G:Gr_base
     {
 
     }
+
 
 }
 

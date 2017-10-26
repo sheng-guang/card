@@ -9,7 +9,7 @@ class mini_main : Mini
 
     public override void load()
     {
-        
+        //addskill<>(0);
     }
 }
 

@@ -27,77 +27,39 @@ public abstract  class Mini:mi_base
 {    
     public override Mini mini(){return this; }
     //加入技能
-    public T addskill<T>() where T : change_, new()
+    public T addskill<T>() where T : skill_, new()
     {
         T newone = new T();
         newone.link_load(this);
         return newone;
     }
+    //加入技能
+    public void addskill<T>( int n) where T : skill_, new()
+    {
+        if(skills.Length>n&&n>=0)
+            skills[n]= addskill<T>();
+    }
 
     public void doSkill(int which,List<byte>d)
     {
-
+        skills[which].getData(d);
+        skills[which].run();
     }
 
     public void Be()
     {
 
     }
-
-
 }
 
-////技能触发者
-//public abstract class skill_base : layer_base
-//{
-//    public override void link_load(Mini m) {upMini = m;load();}
-//    public Mini upMini;
-//    public override Mini mini(){ return upMini;}
-//}
-//public abstract class skill_:skill_base
-//{
-//    public override skill_ skill(){return this; }
-
-
-//    public virtual bool askByGroup { get { return true; } }
-//    public virtual bool isTriggerskill { get { return false; } }
-//    public  bool test_data(Mini_G asker, List<byte> d) {
-
-//        if (overrideTest() == false) return false;
-//        return true;
-//    }
-//    public virtual bool overrideTest() { return false; }
-//    public virtual void  do_(List<byte> d) { }
-//    public Queue<change_> list = new Queue<change_>();
-//}
-//public abstract class card_ : change_
-//{
-
-//}
 public abstract class skill_ : change_
 {
-
-}
-//改变
-public abstract class change_:layer_base
-{
     public Mini upmini;
-    public change_ upchange;
-    public virtual change_ Change() { return upchange == null ? this : upchange; }
-    public  void link_load(skill_ m) { upskill = m; load(); }
-   // public override skill_ skill()  {  return upskill; }
-    //public override change_ change() {return this;}
-
-    public virtual int kind() { return 0; }
-    public virtual bool needCallBefore { get { return true; } }
-    public abstract void run();
-}
-
-public enum change_kind
-{
-    doskill,
-    docard,
-    Trigger_before_damagk,
-    trigger_after_call,
-
+    public virtual void link_load(Mini m) { upmini = m; load(); }
+    public override Mini mini() { return upmini; }
+    public override change_ Change() { return this; }
+    public Queue<change_> list = new Queue<change_>();
+    //测试
+    public virtual bool test_data(List<byte> d) { return true; }
+    public virtual void getData(List<byte> d) { }
 }

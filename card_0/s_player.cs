@@ -5,7 +5,7 @@ public class Mini_G:layer_base
 {
 //public abstract class Gr_base : layer_base
 //{
-    public override void link_load(Host h){
+    public  void link_load(Host h){
         upHost = h; ID = host().NextGID;
         load(); }
     private Host upHost;

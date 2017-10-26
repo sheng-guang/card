@@ -10,7 +10,7 @@ public struct NextIDs
 
 public abstract class host_base : layer_base
 {
-    public override void link_load() { load(); }
+    public  void link_load() { load(); }
     private NextIDs next = new NextIDs(0);
     public int NextorderID { get { return ++next.lastorder; } }
     public int NextminiID { get { return ++next.lastmini; } }

@@ -45,7 +45,8 @@ public class Mini_G:layer_base
     public void doOrder(int MID, int Which, List<byte> d)
     {
         if (MID >= 0) { find_mini(MID).doSkill(Which, d); }
-       // else if (MID == -1) { cards.List[Which].do_(d); }
+        //上传
+        else if (MID == -1) { host().Doskill_card(new Queue<change_>( cards.List[Which].list)); }
     }
     public void Be()
     {
@@ -56,11 +57,4 @@ public class Mini_G:layer_base
 public class cardGroup
 {
     public List<card_> List = new List<card_>();
-}
-public abstract class card_ : skill_
-{
-    public override void load()
-    {
-        
-    }
 }

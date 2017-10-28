@@ -43,7 +43,8 @@ public abstract  class Mini:mi_base
     public void doSkill(int which,List<byte>d)
     {
         skills[which].getData(d);
-        skills[which].run();
+        //上传
+        host().Doskill_card(new Queue<change_>( skills[which].list));
     }
 
     public void Be()
@@ -52,14 +53,3 @@ public abstract  class Mini:mi_base
     }
 }
 
-public abstract class skill_ : change_
-{
-    public Mini upmini;
-    public virtual void link_load(Mini m) { upmini = m; load(); }
-    public override Mini mini() { return upmini; }
-    public override change_ Change() { return this; }
-    public Queue<change_> list = new Queue<change_>();
-    //测试
-    public virtual bool test_data(List<byte> d) { return true; }
-    public virtual void getData(List<byte> d) { }
-}

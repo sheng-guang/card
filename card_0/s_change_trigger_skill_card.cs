@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-//触发
-public abstract class trigger_ : change_
-{}
+
 //卡牌
 public abstract class card_ : skill_
 {}
@@ -36,12 +34,28 @@ public abstract class Report_
 {
 
 }
+public interface ICall_receiver {
+    void Get(Report_ p);
+
+}
+//触发
+public abstract class trigger_ : change_, ICall_receiver
+{
+    public abstract void Get(Report_ p);
+}
+
+public abstract class Call_text : ICall_receiver
+{
+    //提前记录使用数量
+    //例如使用的法术牌数量 过载数量
+    public abstract void Get(Report_ p);
+}
 
 public enum change_kind
 {
     doskill,
     docard,
-    Trigger_before_damagk,
-    trigger_after_call,
+    damag,
+    
 
 }

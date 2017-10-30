@@ -17,7 +17,7 @@ public abstract class layer_base : IFor_layer
     //public virtual void link_load(Host h) { } public virtual void link_load(Mini_G g) { } public virtual void link_load( Mini m) { }
     //public virtual void link_load(skill_ s) { }
     public abstract void load();
- 
+    public layer_base upone;
     public virtual Host host() { return Group() != null ? Group().host() : null; }
     public virtual Mini_G Group() { return mini() != null ? mini().Group() : null; }
     public virtual Mini mini() { return /*skill() != null ? skill().mini() :*/ null; }

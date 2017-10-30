@@ -8,14 +8,12 @@ public abstract class mi_base : layer_base
     public abstract int skillCount { get; }
     public  void link_load(Mini_G g)
     {
-        upGroup = g;
-        ID = host().NextminiID;
+        upone = g;
+        ID = host().next.NextminiID;
         skills = new skill_[skillCount];
         load();
     }
-    private Mini_G upGroup;
-
-    public override Mini_G Group()  { return upGroup;  }
+    public override Mini_G Group()  { return upone.Group();  }
     public skill_[] skills;
     public bool haveskill(int which)
     {

@@ -5,17 +5,17 @@ using System.Text;
 using UnityEngine;
 public struct NextIDs
 {
-    public NextIDs(int n) { lastmini = 0; lastorder = 0; lastPlayer = 0; }
-    public int lastorder,lastPlayer, lastmini;
+    public NextIDs(int max) { lastmini = 0; lastorder = 0; lastPlayer = 0; lastTrigget = 0; }
+    public int lastorder,lastPlayer, lastmini,lastTrigget;
+    public int NextorderID { get { return ++lastorder; } }
+    public int NextGID { get { return ++lastPlayer; } }
+    public int NextminiID { get { return ++lastmini; } }
+    public int NextTriggerID { get { return ++lastmini; } }
 }
-
 public abstract class host_base : layer_base
 {
     public  void link_load() { load(); }
-    private NextIDs next = new NextIDs(0);
-    public int NextorderID { get { return ++next.lastorder; } }
-    public int NextminiID { get { return ++next.lastmini; } }
-    public int NextGID { get { return ++next.lastPlayer; } }
+    public  NextIDs next = new NextIDs(0);
 
 
     public Dictionary<int, Mini_G> IDgroup = new Dictionary<int, Mini_G>();
@@ -23,9 +23,6 @@ public abstract class host_base : layer_base
     
     public Dictionary<int, List<byte>> ID_Data = new Dictionary<int, List<byte>>();
     public List<byte> testingOrder;
-
-
-
 }
 
 public  class Host:host_base
@@ -34,7 +31,6 @@ public  class Host:host_base
     public override void load()
     {
     }
-    
     //加入玩家
     public void addminiG()
     {
@@ -43,14 +39,16 @@ public  class Host:host_base
         newone.link_load(this);
         host().IDgroup.Add(newone.ID, newone);
     }
+    public void AddtriggerChange() { }
     Hostmode mode;
     //开始
     public void loadGame_waitLink() { }
     public void gameStart() { }
     //使用技能
-    public void Doskill_card(Queue<change_> c) { }
-    public void Docall() { }
-    public void AddtriggerChange() { }
+    public void Doskill_card(Queue<change_> c) { mode.doskill(c); }
+    //广播
+    public void Docall(Call_ c) { mode.docall(c); }
+    
 }
 
 public abstract class Hostmode
@@ -60,15 +58,15 @@ public abstract class Hostmode
     public abstract void gameStart();
     //操做技能
     //call------------
-    //public LinkedList<IObj_Be_Call> obj_call = new LinkedList<IObj_Be_Call>();
-    //public LinkedList<IBe_Call> be_call = new LinkedList<IBe_Call>();
+    public Dictionary<int, ICall_receiver> IDtrigger = new Dictionary<int, ICall_receiver>();
+    //public LinkedList<ICall_receiver> be_call = new LinkedList<ICall_receiver>();
     //call------------do
-    public void docall()
+    public void docall(Call_ c)
     {
-        //foreach (IBe_Call b in be_call)
-        //{
-        //    b.getcall(c);
-        //}
+        foreach (KeyValuePair<int ,ICall_receiver>  b in IDtrigger)
+        {
+            b.Value.Get(c);
+        }
     }
 
     //eve-

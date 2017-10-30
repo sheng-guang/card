@@ -6,10 +6,9 @@ public class Mini_G:layer_base
 //public abstract class Gr_base : layer_base
 //{
     public  void link_load(Host h){
-        upHost = h; ID = host().NextGID;
+        upone = h; ID = host().next.NextGID;
         load(); }
-    private Host upHost;
-    public override Host host(){ return upHost; }
+    public override Host host(){ return upone.host(); }
 
     public List<int> IDmini = new List<int>();
     public bool haveMini(int ID) { if (host().IDmini.ContainsKey(ID) && IDmini.Contains(ID)) return true; else return false; }

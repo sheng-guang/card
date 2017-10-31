@@ -4,6 +4,7 @@ using System.Text;
 public abstract class change_G : change_
 {
     public virtual void link_load(Mini m) { upone = m; load(); }
+
     public override Mini mini() { return upone.mini(); }
     public override change_G ChangeG() {return this; }
     public Queue<change_> list = new Queue<change_>();
@@ -36,45 +37,61 @@ public abstract class change_ : layer_base
     public abstract void run();
 }
 
+
+
+
 //触发
+public interface ICall_receiver
+{
+    int ID_ { get; set; }
+    void Get(Call_ p);
+    int needk();
+}
 public abstract class trigger_ : change_G, ICall_receiver
 {
     public abstract void Get(Call_ p);
+    public abstract int needk();
     public change_k1 need1;
-    public change_k2 need2;
+    public  int ID_  { get  { return ID;  } set {ID = value;} }
 }
-//改变报告
+//报告信息
 public abstract class Call_
 {
+    public Call_( bo before_after,byte)
+    {  k1 = k_1; }
     public change_k1 k1;
-    public change_k2 k2;
-    //public layer_base from;
-    
-}
-public interface ICall_receiver {
-    void Get(Call_ p);
-}
+    public int
 
+}
 
 
 public abstract class Call_text : ICall_receiver
 {//提前记录使用数量//例如使用的法术牌数量 过载数量
-    public abstract void Get(Call_ p);}
+    private int ID;
+    public int ID_ { get { return ID; } set { ID = value; } }
+    public abstract void Get(Call_ p);
+    public abstract int needk();
+
+}
+
 
 public enum change_k1
 {
-    //both
-    usecard=1,useskill=2,bout_finish_begin,//回合
-    //after
-    HP_cure,HP_reduce,mini_new,mini_destory,
+    //1   //2     //4 / 8  /16/          //32
+    //第一位是前后//第二位加减//第三四五位分类型//后面为实际类型
+    before_reduce=0,
+    after=1,
+    add=2,
+  
+    use_card_skill=32,
+    HP=64,
+    mini=128,
+    time=256,
     //before,
 }
-public enum change_k2
-{
-    before,
-    after,
-}
-public struct layerID
-{
-    int gID, mID, trID;
-}
+
+
+//public struct layerID
+//{
+//    int gID, mID, trID;
+//}

@@ -22,16 +22,11 @@ public abstract class host_base : layer_base
     public Dictionary<int, Mini> IDmini = new Dictionary<int, Mini>();
     
     public Dictionary<int, List<byte>> ID_Data = new Dictionary<int, List<byte>>();
-    public List<byte> testingOrder;
+    //public List<byte> testingOrder;
 }
 
 public  class Host:host_base
 {
-    public override Host host(){return  this; }
-    public override void load()
-    {
-    }
-    //加入玩家
     public void addminiG()
     {
         if (Group() != null) return;
@@ -39,15 +34,24 @@ public  class Host:host_base
         newone.link_load(this);
         host().IDgroup.Add(newone.ID, newone);
     }
-    public void AddtriggerChange() { }
+
+    public override Host host(){return  this; }
+    public override void load()
+    {
+    }
+    
     Hostmode mode;
+    public void AddTrigger(ICall_receiver i) { mode.AddTrigger(i); }
     //开始
-    public void loadGame_waitLink() { }
-    public void gameStart() { }
+    public void loadGame_waitLink() { mode.loadGame_waitLink(); }
+    public void gameStart() { mode.gameStart(); }
     //使用技能
     public void Doskill_card(Queue<change_> c) { mode.doskill(c); }
     //广播
     public void Docall(Call_ c) { mode.docall(c); }
+    public void DoTrigger(Queue<change_> c) { mode.addTriggered(c); }
+    public void DoTrigger(change_ c) { mode.addTriggered(c); }
+   
     
 }
 
@@ -57,9 +61,23 @@ public abstract class Hostmode
     public abstract void loadGame_waitLink();
     public abstract void gameStart();
     //操做技能
+    public void AddTrigger(ICall_receiver i)
+    {
+        IDtrigger.Add(i.ID_, i);
+        if ((i.needk() & ((int)change_k1.use_card_skill)) != 0) { needSkill_cardcall. AddLast(i.ID_); }
+        if ((i.needk() & ((int)change_k1.HP)) != 0) { hpChangecall.AddLast(i.ID_); }
+        if ((i.needk() & ((int)change_k1.mini )) != 0) { needMinicall.AddLast(i.ID_); }
+        if ((i.needk() & ((int)change_k1.time)) != 0) { needTimecall.AddLast(i.ID_); }
+    }
     //call------------
     public Dictionary<int, ICall_receiver> IDtrigger = new Dictionary<int, ICall_receiver>();
-    //public LinkedList<ICall_receiver> be_call = new LinkedList<ICall_receiver>();
+
+    public LinkedList<int> needSkill_cardcall = new LinkedList<int>();//卡牌技能
+
+    public LinkedList<int> needMinicall = new LinkedList<int>();//随从
+    
+    public LinkedList<int> needTimecall = new LinkedList<int>();//回合时间
+    public LinkedList<int> hpChangecall = new LinkedList<int>();//血量改变
     //call------------do
     public void docall(Call_ c)
     {
@@ -107,11 +125,11 @@ public abstract class Hostmode
     }
     //eve-接收新生成队列
     Queue<change_> the_geter;
-    public void addEVE(change_ e)
+    public void addTriggered(change_ e)
     {
         if (the_geter != null) the_geter.Enqueue(e);
     }
-    public void addEVE(Queue<change_> eL)
+    public void addTriggered(Queue<change_> eL)
     {
         if (the_geter != null)
         {

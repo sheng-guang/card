@@ -22,6 +22,7 @@ public abstract class layer_base : IFor_layer
     public virtual Mini_G Group() { return mini() != null ? mini().Group() : null; }
     public virtual Mini mini() { return /*skill() != null ? skill().mini() :*/ null; }
     //public virtual skill_ skill() { return change() != null ? change().skill() : null; }     public virtual change_ change() { return null; }
+    //加入玩家
 
     public virtual Mini_G find_Group(int ID)
     { return host().IDgroup.ContainsKey(ID) ? host().IDgroup[ID] : null; }

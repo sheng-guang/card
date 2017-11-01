@@ -21,8 +21,8 @@ public abstract class host_base : layer_base
     public Dictionary<int, Mini_G> IDgroup = new Dictionary<int, Mini_G>();
     public Dictionary<int, Mini> IDmini = new Dictionary<int, Mini>();
     
-    public Dictionary<int, List<byte>> ID_Data = new Dictionary<int, List<byte>>();
-    //public List<byte> testingOrder;
+    public Dictionary<int, order_> ID_Data = new Dictionary<int, order_>();
+    //public order_ testingOrder;
 }
 
 public  class Host:host_base

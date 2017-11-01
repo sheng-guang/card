@@ -13,9 +13,21 @@ public abstract class change_G : change_
 //技能
 public abstract class skill_ : change_G
 {
+    int usetimes;
+    public Mini Target;
+    public Mini from;
+    public  virtual void GetData_do(order_ o)
+    {
+        Target = find_mini(o.miniID);
+        from = mini();
+        host().Doskill_card(new Queue<change_>(list));
+    }
     //测试
-    public virtual bool test_data(List<byte> d) { return true; }
-    public virtual void getData(List<byte> d) { }
+    public virtual bool test_data(order_ o) {
+        find_mini(o.miniID).be.asTarget(this);
+        return true;
+    }
+
 }
 //卡牌
 public abstract class card_ : skill_

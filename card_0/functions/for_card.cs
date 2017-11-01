@@ -31,4 +31,8 @@ public abstract class layer_base : IFor_layer
 
 }
 
-
+public class order_
+{
+    public  int miniID;
+    
+}

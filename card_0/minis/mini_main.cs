@@ -10,7 +10,7 @@ class mini_main : Mini
     public override void load()
     {
         addskill<skill_one_damage>(0);
-        addskill<skill_one_damage>(1);
+        //addskill<skill_one_damage>(1);
     }
     
 }

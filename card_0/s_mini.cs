@@ -37,17 +37,17 @@ public abstract  class Mini:mi_base
         if(skills.Length>n&&n>=0)
             skills[n]= addskill<T>();
     }
-
-    public void doSkill(int which,List<byte>d)
+    public Be be = new Be();
+}
+public class Be:layer_base
+{
+    public bool asTarget(skill_ which)
     {
-        skills[which].getData(d);
-        //上传
-        host().Doskill_card(new Queue<change_>( skills[which].list));
+        return false;
     }
 
-    public void Be()
+    public override void load()
     {
-
+        
     }
 }
-

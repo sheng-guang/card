@@ -20,6 +20,7 @@ public class Mini_G:layer_base
 //}public class Mini_G:Gr_base{
 
     public override Mini_G Group()  {  return this; }
+    public void load(Mini m) { }
     public override void load()
     {
         //cards= new cardGroup();
@@ -50,7 +51,7 @@ public class Mini_G:layer_base
     }
     public void Be()
     {
-
+        
     }
 
 }

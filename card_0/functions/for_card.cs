@@ -21,6 +21,7 @@ public abstract class layer_base : IFor_layer
     public virtual Mini mini() { return upone.mini(); }
     public virtual change_G changeG() { return upone.changeG(); }
     public virtual change_ change() { return upone.change(); }
+    public void outputchange(Call_ c) { }
     //public virtual skill_ skill() { return change() != null ? change().skill() : null; }     public virtual change_ change() { return null; }
     //加入玩家
     public T addMiniG<T>() where T : Mini_G, new()

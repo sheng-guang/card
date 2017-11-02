@@ -50,7 +50,7 @@ public class Host : host_base
     //使用技能
     public void Doskill_card(Queue<change_> c) { mode.doskill(c); }
     //广播
-    public void Docall_(Call_ c,List_ForCard data) { mode.docall(c,data); }
+    public void Docall_(Call_ c,List_ForCard data) { mode.docall(c); }
 
     public void DoTrigger(Queue<change_> c) { mode.addTriggered(c); }
     public void DoTrigger(change_ c) { mode.addTriggered(c); }
@@ -84,21 +84,24 @@ public abstract class Hostmode:layer_base
     public LinkedList<int> needTimecall = new LinkedList<int>();//回合时间
     public LinkedList<int> needhpChangecall = new LinkedList<int>();//血量改变
     //call------------do
-    public void docall(Call_ c,List_ForCard l)
+    public void docall(Call_ c)
     {
         if (!toget) return;
-        nowCall_Data = l;
+
         LinkedList<int> to = null;
         if (c.k1 == change_k1.use_card_skill) { to = needSkill_cardcall; }
         else if (c.k1 == change_k1.HP) { to = needhpChangecall; }
         else if (c.k1 == change_k1.mini) { to = needMinicall; }
         else if (c.k1 == change_k1.time) { to = needTimecall; }
+
+        outputchange(c);
         foreach(int n in to)
         {
+            
             IDtrigger[n].Get(c);
         }
     }
-    public List_ForCard nowCall_Data;
+
     //eve-
     public Stack<Queue<change_>> todoL = new Stack<Queue<change_>>();
     //eve-全新玩家主动行为

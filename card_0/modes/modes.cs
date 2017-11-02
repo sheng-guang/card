@@ -15,7 +15,7 @@ public class mixmode : Hostmode
     {
         player p;
         p= host().addMiniG<player>();
-        Debug.Log( p.addMini<mini_main>());
+        //Debug.Log( p.addMini<mini_main>());
         p= host().addMiniG<player>();
         p.addMini<mini_main>();
     }

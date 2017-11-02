@@ -92,6 +92,7 @@ public abstract class Call_
     }
     public change_k1 k1;
     public int  info=0;
+    public List_ForCard L = new List_ForCard();
 }
 
 public abstract class Call_text : ICall_receiver

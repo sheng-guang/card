@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class _0_camera : MonoBehaviour {
-    public static _0_camera _0;
-    void Awake() { _0 = this;  }
+    public static _0_camera camera_;
+    void Awake() { camera_ = this;  }
     
     [Header("旋转")]
     public bool useful1 = true;

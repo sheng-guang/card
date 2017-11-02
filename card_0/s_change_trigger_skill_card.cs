@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+//卡牌
 public abstract class card_ : skill_
 {
     public virtual void link_load(Mini_G g) { upone = g; load(); }
@@ -32,47 +33,39 @@ public abstract class skill_ : change_G
     public virtual bool Target_Test(int ID)
     { if (find_mini(ID).be.asTarget(this) == false) return false;return true; }
 }
-//卡牌
 
-//改变//参考回调函数修改
-public abstract class change_ : layer_base
-{
-    private change_G toolchange;
-    public virtual change_G Change() { return toolchange; }
-    public override Mini mini() { return Change().mini(); }
-    public virtual void link_load(change_G c) { toolchange = c; load(); }
-    public virtual int kind() { return 0; }//返回一个组合
-    public virtual bool needCallBefore { get { return false; } }
-    public virtual bool needCallAfter { get { return false; } }
-    public abstract void run();
-}
 
 public abstract class change_G : change_
 {    public Mini Target;
     public Mini from;
-    public virtual void link_load(Mini m) { upone = m; loadList(); }
-    public abstract void  loadList();
-    public override Mini mini() { return upone.mini(); }
-    public override change_G Change() {return this; }
+    public override change_G changeG() {return this; }
     public Queue<change_> list = new Queue<change_>();
+
     public override void run() { }
-    //public void  addChange<T>()where T:change_,new()//{//    T newone = new T();//    newone.link_load(this);//    list.Enqueue(newone);//}
-    //自己用于call
-    public void addSelf()
+    public void addSelf_For_call()
     {
         list.Enqueue(this);
     }
+
     public void addHpChange<T>(int n,hp_change_K k) where T : hp_change, new()
     {
         T newone = new T();
-        newone.link_load(this);
+        newone.link(this, 0);
         newone.num = n;newone.k1 = k;
+        newone.load();
         list.Enqueue(newone);
     }
 
 }
 
-
+//改变//参考回调函数修改
+public abstract class change_ : layer_base
+{
+    public virtual int kind() { return 0; }//返回一个组合
+    public virtual bool needCallBefore { get { return false; } }
+    public virtual bool needCallAfter { get { return false; } }
+    public abstract void run();
+}
 
 //触发
 public interface ICall_receiver

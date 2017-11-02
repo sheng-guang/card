@@ -17,7 +17,6 @@ public abstract class mi_base : layer_base
         maxHP = baseHp;nowHP = baseHp;
         load();
     }
-    public override Mini_G Group()  { return upone.Group();  }
     public skill_[] skills;
     public bool haveskill(int which)
     {
@@ -30,12 +29,8 @@ public abstract  class Mini:mi_base
 {    
     public override Mini mini(){return this; }
     //加入技能
-    public T addskill<T>() where T : skill_, new()
-    {
-        T newone = new T();
-        newone.link_load(this);
-        return newone;
-    }
+
+
 }
 public class Be:layer_base
 {
@@ -76,6 +71,11 @@ public class Be:layer_base
         else to = final;
         if (to.Contains(b)) to.Remove(b);
     }
+
+    public override void load()
+    {
+    }
+
     List<buff_> top = new List<buff_>();
     List<buff_> middle = new List<buff_>();
     List<buff_> final = new List<buff_>();

@@ -3,6 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
+public class player : Mini_G
+{
+    public override void load()
+    {
+        
+    }
+}
 public  class mini_main : Mini
 {
     public override int baseHp  {  get  {   return 50; }  }

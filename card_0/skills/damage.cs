@@ -5,9 +5,9 @@ using System.Text;
 
 public class skill_1_damage : skill_
 {
-    public override void loadList()
+    public override void load()
     {
-        addSelf();
+        addSelf_For_call();
         addHpChange<hp_change>(1, hp_change_K.ignore);
     }
 }
@@ -16,10 +16,15 @@ public class hp_change : change_
     public int num;
     public hp_change_K k1;
 
+    public override void load()
+    {
+
+    }
+
     public override void run()
     {
-        Change().from.be.giveHP(this);
-        Change().Target.be.hp(this);
+       changeG().from.be.giveHP(this);
+       changeG().Target.be.hp(this);
     }
 }
 public enum hp_change_K

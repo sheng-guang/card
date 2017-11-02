@@ -12,17 +12,61 @@ public interface IFor_layer {
 
 public abstract class layer_base : IFor_layer
 {
+    public void link(layer_base b,int I) { upone = b;ID = I; }
+    public abstract void load();
     public  int ID;
-    //public virtual void link_load() { }
-    //public virtual void link_load(Host h) { } public virtual void link_load(Mini_G g) { } public virtual void link_load( Mini m) { }
-    //public virtual void link_load(skill_ s) { }
-    public virtual void load() { }
     public layer_base upone;
-    public virtual Host host() { return Group() != null ? Group().host() : null; }
-    public virtual Mini_G Group() { return mini() != null ? mini().Group() : null; }
-    public virtual Mini mini() { return /*skill() != null ? skill().mini() :*/ null; }
+    public virtual Host host() { return upone.host(); }
+    public virtual Mini_G Group() { return upone.Group(); }
+    public virtual Mini mini() { return upone.mini(); }
+    public virtual change_G changeG() { return upone.changeG(); }
+    public virtual change_ change() { return upone.change(); }
     //public virtual skill_ skill() { return change() != null ? change().skill() : null; }     public virtual change_ change() { return null; }
     //加入玩家
+    public T addMiniG<T>() where T : Mini_G, new()
+    {
+        if ( GetType()!=typeof(Host) ) return null;
+        T newone = new T();
+        newone.link(this,host().next.NextGID);
+        host().IDgroup.Add(newone.ID, newone);
+        newone.load();
+        return newone;
+    }
+    public T addMini<T>() where T : Mini, new()
+    {
+        if (GetType().BaseType != typeof(Mini_G)) return null;
+        T newone = new T();
+        newone.link(this, host().next.NextminiID);
+        host().IDmini.Add(newone.ID, newone);
+        Group().IDmini.Add(newone.ID);
+        newone.load();
+        return newone;
+    }
+    public T addskill<T>() where T : skill_, new()
+    {
+        if (GetType() != typeof(Mini)) return null;
+        T newone = new T();
+        newone.link(this,0);
+        newone.load();
+        return newone;
+    }
+    public T addcard   <T>() where T :card_, new()
+    {
+        if (GetType() != typeof(Mini)) return null;
+        T newone = new T();
+        newone.link(this, 0);
+        newone.load();
+        return newone;
+    }
+    //public T addChange<T>()where T : change_, new()
+    //{
+    //    if (GetType() != typeof(change_G)) return null;
+    //    T newone = new T();
+    //    newone.link(this, 0);
+    //    newone.load();
+    //    return newone;
+    //}
+
 
     public virtual Mini_G find_Group(int ID)
     { return host().IDgroup.ContainsKey(ID) ? host().IDgroup[ID] : null; }

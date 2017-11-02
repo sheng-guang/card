@@ -14,10 +14,12 @@ public struct NextIDs
 }
 public abstract class host_base : layer_base
 {
-    public  void link_load() { load(); }
+    public override Mini_G Group(){ return null;  }public override Mini mini(){return null; }
+    public override change_G changeG() { return null; } public override change_ change()  {  return null;  }
+    
+
     public  NextIDs next = new NextIDs(0);
-
-
+    //各种ID列表
     public Dictionary<int, Mini_G> IDgroup = new Dictionary<int, Mini_G>();
     public Dictionary<int, Mini> IDmini = new Dictionary<int, Mini>();
     
@@ -25,22 +27,22 @@ public abstract class host_base : layer_base
     //public order_ testingOrder;
 }
 
-public  class Host:host_base
+public class Host : host_base
 {
-    public void addminiG()
+    public override void load() { }
+    public override Host host(){return  this; }
+
+    public Host (int kind)
     {
-        if (Group() != null) return;
-        Mini_G newone = new Mini_G();
-        newone.link_load(this);
-        host().IDgroup.Add(newone.ID, newone);
+        if (kind == 0) { mode = addmode<mixmode>(); }
+    }
+    public T addmode<T>()where T : Hostmode, new()
+    {
+        T newone = new T();newone.link(this, 0);newone.load();
+        return newone;
     }
 
-    public override Host host(){return  this; }
-    public override void load()
-    {
-    }
-    
-    Hostmode mode;
+    public  Hostmode mode;
     public void AddTrigger(ICall_receiver i) { mode.AddTrigger(i); }
     //开始
     public void loadGame_waitLink() { mode.loadGame_waitLink(); }
@@ -52,12 +54,14 @@ public  class Host:host_base
 
     public void DoTrigger(Queue<change_> c) { mode.addTriggered(c); }
     public void DoTrigger(change_ c) { mode.addTriggered(c); }
-   
+
     
 }
 
-public abstract class Hostmode
+public abstract class Hostmode:layer_base
 {
+    
+    public override Host host()  { return upone.host();  }
     //开始
     public abstract void loadGame_waitLink();
     public abstract void gameStart();

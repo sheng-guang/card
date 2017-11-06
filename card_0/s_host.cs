@@ -14,6 +14,8 @@ public struct NextIDs
 }
 public abstract class host_base : layer_base
 {
+    public override Type toolType { get { return typeof(Host); } }
+
     public override Mini_G Group(){ return null;  }public override Mini mini(){return null; }
     public override change_G changeG() { return null; } public override change_ change()  {  return null;  }
     
@@ -48,7 +50,10 @@ public class Host : host_base
     public void loadGame_waitLink() { mode.loadGame_waitLink(); }
     public void gameStart() { mode.gameStart(); }
     //使用技能
-    public void Doskill_card(Queue<change_> c) { mode.doskill(c); }
+    public void  Doskill_card(skill_ skill) {  }
+    public void Doskill_card(card_ card) { }
+    public void Doskill_card(trigger_ trigger) { }
+    void Doskill_card(Queue<change_> c) { mode.doskill(c); }
     //广播
     public void Docall_(Call_ c,List_ForCard data) { mode.docall(c); }
 

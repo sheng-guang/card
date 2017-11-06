@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 public abstract class Mini_G:layer_base
 {
-
+    public override Type toolType { get { return typeof(Mini_G); } }
     public override Mini_G Group()  {  return this; }
 
     //随从
@@ -14,8 +14,8 @@ public abstract class Mini_G:layer_base
     public bool skillCando(int ID,int which, order_ o) { if(haveSkill(ID,which)&&find_mini(ID).skills[which].test_data(o)) return true; else return false; }
     //卡牌
     public cardGroup cards=new cardGroup();
-    public bool havecard(int which) {if(cards.List.Count>which) return true; else return false; }
-    public bool cardCando(int which, order_ o) {if(havecard(which)&&cards.List[which].test_data(o)) return true; else return false; }
+    public bool havecard(int which) {if(cards.HandList.Count>which) return true; else return false; }
+    public bool cardCando(int which, order_ o) {if(havecard(which)&&cards.HandList[which].test_data(o)) return true; else return false; }
 
     //order
     public void getOrder(int MID,int Which, order_ o)
@@ -32,7 +32,7 @@ public abstract class Mini_G:layer_base
         //技能
         if (MID >= 0) { find_mini(MID).skills[Which].GetData_do(o); }
         //上传//卡牌
-        else if (MID == -1) { host().Doskill_card(new Queue<change_>( cards.List[Which].list)); }
+        else if (MID == -1) { host().Doskill_card( cards.HandList[Which]); }
     }
     public void Be()
     {
@@ -43,5 +43,14 @@ public abstract class Mini_G:layer_base
 
 public class cardGroup
 {
-    public List<card_> List = new List<card_>();
+    public List<card_> HandList = new List<card_>();
+    //public List<>
+    public void firstload() { }
+}
+public class cardNode
+{
+    public cardNode upone;
+    public bool used;
+    public cardNode nextone;
+
 }

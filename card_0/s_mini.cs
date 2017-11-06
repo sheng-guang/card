@@ -5,6 +5,7 @@ using System.Text;
 //随从
 public abstract class mi_base : layer_base
 {
+    public override Type toolType { get { return typeof(Mini); } }
     public abstract int baseHp { get; }
     public int maxHP, nowHP;
     public abstract int skillCount { get; }
@@ -29,25 +30,22 @@ public abstract  class Mini:mi_base
 {    
     public override Mini mini(){return this; }
     //加入技能
-
-
 }
 public class Be:layer_base
 {
+    public void link_load(Mini m) { upone = m; }
 
-    public void giveHP(hp_change c)
-    {
-        //foreach()
-    }
+    public void give_buff(skill_ skill)  { }
+    void give_HP(hp_change c) {/*foreach() */ }
     //buff-top判断是否受伤
     //middle-倍数减伤增伤
     //final-加减减伤
-    public void link_load(Mini m) { upone = m; }
+    
     public bool asTarget(skill_ which)
-    {
-        return false;
-    }
-    public void hp(hp_change c) {
+    { return false;  }
+
+
+    public void hp_change(int n,hp_change_K k) {
 
     }
     public void GetBuff(buff_ b) { add(b); }
@@ -79,6 +77,8 @@ public class Be:layer_base
     List<buff_> top = new List<buff_>();
     List<buff_> middle = new List<buff_>();
     List<buff_> final = new List<buff_>();
+
+    
 }
 //public class buffs
 //{

@@ -16,15 +16,9 @@ public class hp_change : change_
     public int num;
     public hp_change_K k1;
 
-    public override void load()
-    {
-
-    }
-
     public override void run()
     {
-       changeG().from.be.giveHP(this);
-       changeG().Target.be.hp(this);
+       changeG().Target.be.hp_change(num,k1);
     }
 }
 public enum hp_change_K

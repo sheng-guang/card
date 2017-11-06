@@ -14,20 +14,24 @@ public abstract class skill_ : change_G
     int usetimes;
     public  virtual void GetData_do(order_ o)
     {
+         if(test_data(o)==false) return ;
         //可能需要重写
         usetimes -= 1;
         //可能需要重写
-        Target = find_mini(o.miniID);from = mini();
-        host().Doskill_card(new Queue<change_>(list));
+        findTarget(o);
+        changeG().from.be.give_buff(this);
+        host().Doskill_card(this);
     }
+    public virtual void findTarget( order_ o)
+    {Target = find_mini(o.miniID);from = mini(); }
     //测试
     public  bool test_data(order_ o) {
-       if(time_Test()&&Target_Test(o.miniID))
+       if(times_Test()&&Target_Test(o.miniID))
             return true;
         return false;
     }
     //次数测试可重写
-    public virtual bool time_Test()
+    public virtual bool times_Test()
     { if (usetimes <= 0) return false; return true; }
     //目标测试可重写
     public virtual bool Target_Test(int ID)
@@ -36,7 +40,8 @@ public abstract class skill_ : change_G
 
 
 public abstract class change_G : change_
-{    public Mini Target;
+{
+    public Mini Target;
     public Mini from;
     public override change_G changeG() {return this; }
     public Queue<change_> list = new Queue<change_>();
@@ -61,6 +66,10 @@ public abstract class change_G : change_
 //改变//参考回调函数修改
 public abstract class change_ : layer_base
 {
+    public override void load()
+    {
+        
+    }
     public virtual int kind() { return 0; }//返回一个组合
     public virtual bool needCallBefore { get { return false; } }
     public virtual bool needCallAfter { get { return false; } }

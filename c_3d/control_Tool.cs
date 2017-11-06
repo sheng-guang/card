@@ -24,13 +24,16 @@ public class control_Tool :camera_force_tar {
     {
         mini = mi;
         player_3d p=player;
-
         ui_tool to;now.gameObject.SetActive(false);
         if (p_ui.ContainsKey(p)) { to = p_ui[p];to.gameObject.SetActive(true);  }
         else to=Instantiate(ready);
         to.mini = player.miniG;
         to.all();
-        
+    }
+    public void Update()
+    {
+        if (mini!=null)
+        mini.move.move();
     }
 
 }

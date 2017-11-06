@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class move_2d : camera_force_tar {
+public class move_2d : camera_force_tar,move {
 
 
 	void Start () {
@@ -16,7 +16,8 @@ public class move_2d : camera_force_tar {
     {  get {  return point;  }}
     [Range(0,20)]
     public float v;
-    public virtual void Update () {
+    public void move()
+    {
         if (!input_txt.wasd) { return; } 
         Vector3 cameraF =  input_txt.CameraForward_3.forward;
         cameraF.Scale(new Vector3(1, 0, 1));
@@ -26,6 +27,10 @@ public class move_2d : camera_force_tar {
         cameraF.Normalize();
         
         point.position += cameraF*Time.deltaTime*v;
-
     }
+
+}
+public interface move
+{
+    void move();
 }

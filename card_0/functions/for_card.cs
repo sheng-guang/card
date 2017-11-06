@@ -12,6 +12,7 @@ public interface IFor_layer {
 
 public abstract class layer_base : IFor_layer
 {
+    public virtual Type toolType { get { return typeof(layer_base); } }
     public void link(layer_base b,int I) { upone = b;ID = I; }
     public abstract void load();
     public  int ID;
@@ -26,7 +27,7 @@ public abstract class layer_base : IFor_layer
     //加入玩家
     public T addMiniG<T>() where T : Mini_G, new()
     {
-        if ( GetType()!=typeof(Host) ) return null;
+        if ( toolType!=typeof(Host) ) return null;
         T newone = new T();
         newone.link(this,host().next.NextGID);
         host().IDgroup.Add(newone.ID, newone);
@@ -35,7 +36,7 @@ public abstract class layer_base : IFor_layer
     }
     public T addMini<T>() where T : Mini, new()
     {
-        if (GetType().BaseType != typeof(Mini_G)) return null;
+        if (toolType != typeof(Mini_G)) return null;
         T newone = new T();
         newone.link(this, host().next.NextminiID);
         host().IDmini.Add(newone.ID, newone);
@@ -45,7 +46,7 @@ public abstract class layer_base : IFor_layer
     }
     public T addskill<T>() where T : skill_, new()
     {
-        if (GetType() != typeof(Mini)) return null;
+        if (toolType != typeof(Mini)) return null;
         T newone = new T();
         newone.link(this,0);
         newone.load();
@@ -53,7 +54,7 @@ public abstract class layer_base : IFor_layer
     }
     public T addcard   <T>() where T :card_, new()
     {
-        if (GetType() != typeof(Mini)) return null;
+        if (toolType != typeof(Mini)) return null;
         T newone = new T();
         newone.link(this, 0);
         newone.load();

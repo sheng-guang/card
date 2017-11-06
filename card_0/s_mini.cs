@@ -18,6 +18,7 @@ public abstract class mi_base : layer_base
         maxHP = baseHp;nowHP = baseHp;
         load();
     }
+    
     public skill_[] skills;
     public bool haveskill(int which)
     {
@@ -30,7 +31,9 @@ public abstract  class Mini:mi_base
 {    
     public override Mini mini(){return this; }
     //加入技能
-}
+    public override void load() { be.link_load(this); }
+} 
+
 public class Be:layer_base
 {
     public void link_load(Mini m) { upone = m; }

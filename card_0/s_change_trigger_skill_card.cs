@@ -6,7 +6,8 @@ public abstract class card_ : skill_
 {
     public virtual void link_load(Mini_G g) { upone = g; load(); }
     public override Mini_G Group(){return upone.Group(); }
-
+    //卡牌分解//可以分解成能量//组件//卡牌中的卡牌
+    public virtual void decompose() { }
 }
 //技能
 public abstract class skill_ : change_G
@@ -15,10 +16,10 @@ public abstract class skill_ : change_G
     public  virtual void GetData_do(order_ o)
     {
          if(test_data(o)==false) return ;
+         //可能需要重写
+        findTarget(o);
         //可能需要重写
         usetimes -= 1;
-        //可能需要重写
-        findTarget(o);
         changeG().from.be.give_buff(this);
         host().Doskill_card(this);
     }
@@ -37,8 +38,6 @@ public abstract class skill_ : change_G
     public virtual bool Target_Test(int ID)
     { if (find_mini(ID).be.asTarget(this) == false) return false;return true; }
 }
-
-
 public abstract class change_G : change_
 {
     public Mini Target;
@@ -46,7 +45,7 @@ public abstract class change_G : change_
     public override change_G changeG() {return this; }
     public Queue<change_> list = new Queue<change_>();
 
-    public override void run() { }
+    public override void run(Be b) { }
     public void addSelf_For_call()
     {
         list.Enqueue(this);
@@ -66,14 +65,13 @@ public abstract class change_G : change_
 //改变//参考回调函数修改
 public abstract class change_ : layer_base
 {
-    public override void load()
-    {
-        
-    }
+    public override change_ change() {return this; }
+    public override void load() { }
     public virtual int kind() { return 0; }//返回一个组合
     public virtual bool needCallBefore { get { return false; } }
     public virtual bool needCallAfter { get { return false; } }
-    public abstract void run();
+    public virtual void run() { run(changeG().Target.be);}
+    public abstract void run(Be target);
 }
 
 //触发

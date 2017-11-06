@@ -15,10 +15,9 @@ public class hp_change : change_
 {
     public int num;
     public hp_change_K k1;
-
-    public override void run()
+    public override void run(Be target)
     {
-       changeG().Target.be.hp_change(num,k1);
+        target.hp_change(num, k1);
     }
 }
 public enum hp_change_K

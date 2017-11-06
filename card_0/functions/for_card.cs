@@ -14,7 +14,7 @@ public abstract class layer_base : IFor_layer
 {
     public virtual Type toolType { get { return typeof(layer_base); } }
     public void link(layer_base b,int I) { upone = b;ID = I; }
-    public abstract void load();
+    public abstract void load();//只是一个提醒 可能不需要
     public  int ID;
     public layer_base upone;
     public virtual Host host() { return upone.host(); }
@@ -68,7 +68,6 @@ public abstract class layer_base : IFor_layer
     //    newone.load();
     //    return newone;
     //}
-
 
     public virtual Mini_G find_Group(int ID)
     { return host().IDgroup.ContainsKey(ID) ? host().IDgroup[ID] : null; }

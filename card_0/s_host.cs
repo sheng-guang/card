@@ -40,7 +40,7 @@ public class Host : host_base
     }
     public T addmode<T>()where T : Hostmode, new()
     {
-        T newone = new T();newone.link(this, 0);newone.load();
+        T newone = new T();newone.link(this);newone.load();
         return newone;
     }
 
@@ -133,9 +133,9 @@ public abstract class Hostmode:layer_base
         { todoL.Pop(); }
         change_ todo_c = todoL.Peek().Dequeue();
         //Debug.Log(todo_c);
-        if (todo_c.needCallBefore) { }//如果需要触发的话先进行触发
-        todo_c.run();
-        if (todo_c.needCallAfter) { }//如果需要触发的话先进行触发
+        // if (todo_c.needCallBefore) { }//如果需要触发的话先进行触发
+        //todo_c.run();
+        // if (todo_c.needCallAfter) { }//如果需要触发的话先进行触发
 
         Change__top_Get_queue();
     }

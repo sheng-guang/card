@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 
 //随从
-public abstract class mi_base : layer_base
+public abstract class mi_base : layer_base_ID
 {
     public override Type toolType { get { return typeof(Mini); } }
     public abstract int baseHp { get; }
@@ -38,7 +38,7 @@ public class Be:layer_base
 {
     public void link_load(Mini m) { upone = m; }
 
-    public void give_buff(skill_ skill)  { }
+    public void Before_give_buff(skill_ skill)  { }
     void give_HP(hp_change c) {/*foreach() */ }
     //buff-top判断是否受伤
     //middle-倍数减伤增伤

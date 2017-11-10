@@ -4,14 +4,15 @@ using System.Text;
 //卡牌
 public abstract class card_ : skill_
 {
-    public virtual void link_load(Mini_G g) { upone = g; load(); }
-    public override Mini_G Group(){return upone.Group(); }
+    //public override void GetData_do(order_ o){  }
     //卡牌分解//可以分解成能量//组件//卡牌中的卡牌
-    public virtual void decompose() { }
+    public abstract void decompose();
 }
 //技能
 public abstract class skill_ : change_G
 {
+    public Mini Target;
+    public Mini from;
     int usetimes;
     public  virtual void GetData_do(order_ o)
     {
@@ -20,11 +21,9 @@ public abstract class skill_ : change_G
         findTarget(o);
         //可能需要重写
         usetimes -= 1;
-        changeG().from.be.give_buff(this);
+        from.be.Before_give_buff(this);
         host().Doskill_card(this);
     }
-    public virtual void findTarget( order_ o)
-    {Target = find_mini(o.miniID);from = mini(); }
     //测试
     public  bool test_data(order_ o) {
        if(times_Test()&&Target_Test(o.miniID))
@@ -37,29 +36,22 @@ public abstract class skill_ : change_G
     //目标测试可重写
     public virtual bool Target_Test(int ID)
     { if (find_mini(ID).be.asTarget(this) == false) return false;return true; }
+    public virtual void findTarget( order_ o)
+    {Target = find_mini(o.miniID);from = mini(); }
+
 }
 public abstract class change_G : change_
 {
-    public Mini Target;
-    public Mini from;
-    public override change_G changeG() {return this; }
     public Queue<change_> list = new Queue<change_>();
+    public override change_G changeG() {return this; }
 
-    public override void run(Be b) { }
-    public void addSelf_For_call()
+    public void load_Self_For_call(){ list.Enqueue(this);}
+    public void loadHpChange<T>(int n,hp_change_K k) where T : hp_change, new()
     {
-        list.Enqueue(this);
-    }
-
-    public void addHpChange<T>(int n,hp_change_K k) where T : hp_change, new()
-    {
-        T newone = new T();
-        newone.link(this, 0);
+        var newone= addChange<hp_change>();
         newone.num = n;newone.k1 = k;
-        newone.load();
         list.Enqueue(newone);
     }
-
 }
 
 //改变//参考回调函数修改
@@ -68,9 +60,6 @@ public abstract class change_ : layer_base
     public override change_ change() {return this; }
     public override void load() { }
     public virtual int kind() { return 0; }//返回一个组合
-    public virtual bool needCallBefore { get { return false; } }
-    public virtual bool needCallAfter { get { return false; } }
-    public virtual void run() { run(changeG().Target.be);}
     public abstract void run(Be target);
 }
 
@@ -84,8 +73,10 @@ public interface ICall_receiver
 }
 public abstract class trigger_ : change_G, ICall_receiver
 {
-    public abstract void Get(Call_ p);
+    int ID;
     public abstract int needinfo();
+    public abstract void Get(Call_ p);
+    
     public  int ID_  { get  { return ID;  } set {ID = value;} }
     public abstract change_k1 k1 { get; }
 }

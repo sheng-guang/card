@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-public abstract class Mini_G:layer_base
+public abstract class Mini_G:layer_base_ID
 {
     public override Type toolType { get { return typeof(Mini_G); } }
     public override Mini_G Group()  {  return this; }
@@ -13,7 +13,7 @@ public abstract class Mini_G:layer_base
     public bool haveSkill(int ID,int which) { if (haveMini(ID) && find_mini(ID).haveskill(which)) return true; else return false; }
     public bool skillCando(int ID,int which, order_ o) { if(haveSkill(ID,which)&&find_mini(ID).skills[which].test_data(o)) return true; else return false; }
     //卡牌
-    public cardGroup cards=new cardGroup();
+    public cardG_card cards=new cardG_card();
     
     //order
     public void getOrder(int MID,int Which, order_ o)
@@ -40,27 +40,46 @@ public abstract class Mini_G:layer_base
 
     }
 
-
-    public void Be()
-    {
-        
-    }
+    public playerData data=new playerData();
 
 }
-
-public class cardGroup
+public class playerData
 {
+    int energy;
+
+    public void changeEnergy(int n) { }
+}
+public class cardG_card:CardG_int
+{
+    //手牌
     public List<card_> HandList = new List<card_>();
-    //public List<>
+    //手牌是否有
     public bool havecard(int which) { if (HandList.Count > which) return true; else return false; }
+    //which牌是否能用
     public bool cardCando(int which, order_ o) { if (havecard(which) && HandList[which].test_data(o)) return true; else return false; }
-
-    public void firstload() { }
+    //抽n张牌
+    public void draw_N_ToHand(int n) { }
+    //直接加入手牌
+    public void addWhichToHand(int ID) { }
+    //直接加入卡组
+    public void addWhichToGroup(int ID) { }
 }
-public class cardNode
+public class CardG_int
 {
-    public cardNode upone;
-    public bool used;
-    public cardNode nextone;
+    //初始化
+    public void firstload() { }
+    public List<card_ID_num> ID_num = new List<card_ID_num>();
+    //加入一张
+    public void add1(int ID) { }
+    //ID//随机删除一张
+    public int  remove1() { return 1; }
+    //改变某种为另一种或者改为无
+    public void change1(int IDfind,int IDto) { }
+    //num//有几张
+    public int find1(int ID) { return 1; }
+}
 
+public class card_ID_num
+{
+    int ID;int which;
 }

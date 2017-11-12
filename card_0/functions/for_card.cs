@@ -65,6 +65,14 @@ public abstract class layer_base : IFor_layer
         newone.load();
         return newone;
     }
+    public card_ addcard(int n)
+    {
+        if (toolType != typeof(Mini)) return null;
+        card_ newone=creaater.creat_card(n);
+        newone.link(this);
+        newone.load();
+        return newone;
+    }
     public T addChange<T>() where T : change_, new()
     {
         if (GetType() != typeof(change_G)) return null;
@@ -83,6 +91,7 @@ public abstract class layer_base : IFor_layer
 
 public class order_
 {
+    public Type type;
     public  int miniID;
     
 }

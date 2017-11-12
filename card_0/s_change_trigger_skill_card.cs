@@ -4,9 +4,11 @@ using System.Text;
 //卡牌
 public abstract class card_ : skill_
 {
+    public abstract int ID { get; }
     //public override void GetData_do(order_ o){  }
     //卡牌分解//可以分解成能量//组件//卡牌中的卡牌
     public abstract void decompose();
+    
 }
 //技能
 public abstract class skill_ : change_G

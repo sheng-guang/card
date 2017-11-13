@@ -41,7 +41,6 @@ public abstract class layer_base : IFor_layer
     
     public layer_base upone;
     public virtual Host host() { return upone.host(); }
-    public virtual Mini_G Group() { return upone.Group(); }
     public virtual Mini_G Group() { return upone.Group(); }public virtual Mini mini() { return upone.mini(); }
     public virtual change_G changeG() { return upone.changeG(); }public virtual change_ change() { return upone.change(); }
     public void outputchange(Call_ c) { }

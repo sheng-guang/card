@@ -12,7 +12,7 @@ public struct NextIDs
     public int NextminiID { get { return ++lastmini; } }
     public int NextTriggerID { get { return ++lastmini; } }
 }
-public abstract class host_base : layer_base
+public abstract class host_base : layer_base_ID
 {
     public override Type toolType { get { return typeof(Host); } }
 
@@ -65,8 +65,6 @@ public class Host : host_base
 
 public abstract class Hostmode:layer_base
 {
-    
-    public override Host host()  { return upone.host();  }
     //开始
     public abstract void loadGame_waitLink();
     public abstract void gameStart();
@@ -102,7 +100,6 @@ public abstract class Hostmode:layer_base
         outputchange(c);
         foreach(int n in to)
         {
-            
             IDtrigger[n].Get(c);
         }
     }

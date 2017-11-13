@@ -16,10 +16,12 @@ public abstract class skill_ : change_G
     public Mini Target;
     public Mini from;
     int usetimes;
+
+
     public  virtual void GetData_do(order_ o)
     {
-         if(test_data(o)==false) return ;
-         //可能需要重写
+        if (test_data(o)==false) return ;
+        //可能需要重写
         findTarget(o);
         //可能需要重写
         usetimes -= 1;
@@ -47,6 +49,7 @@ public abstract class change_G : change_
     public Queue<change_> list = new Queue<change_>();
     public override change_G changeG() {return this; }
 
+    public virtual void upTOhost() { }
     public void load_Self_For_call(){ list.Enqueue(this);}
     public void loadHpChange<T>(int n,hp_change_K k) where T : hp_change, new()
     {
@@ -61,7 +64,7 @@ public abstract class change_ : layer_base
 {
     public override change_ change() {return this; }
     public override void load() { }
-    public virtual int kind() { return 0; }//返回一个组合
+    public virtual int kind() { return 0; }//返回一个组合后面改成abstract
     public abstract void run(Be target);
 }
 

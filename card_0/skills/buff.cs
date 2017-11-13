@@ -9,7 +9,7 @@ public class buff_
 }
 public enum buff_kind
 {
-    top=1,
-    middle=2,final=4,
+    stay_top=1, stay_middle=2,stay_final=4,
+    //once =8,
 
 }

@@ -42,9 +42,8 @@ public abstract class layer_base : IFor_layer
     public layer_base upone;
     public virtual Host host() { return upone.host(); }
     public virtual Mini_G Group() { return upone.Group(); }
-    public virtual Mini mini() { return upone.mini(); }
-    public virtual change_G changeG() { return upone.changeG(); }
-    public virtual change_ change() { return upone.change(); }
+    public virtual Mini_G Group() { return upone.Group(); }public virtual Mini mini() { return upone.mini(); }
+    public virtual change_G changeG() { return upone.changeG(); }public virtual change_ change() { return upone.change(); }
     public void outputchange(Call_ c) { }
     //public virtual skill_ skill() { return change() != null ? change().skill() : null; }     public virtual change_ change() { return null; }
     //加入玩家
@@ -52,33 +51,29 @@ public abstract class layer_base : IFor_layer
     public T addskill<T>() where T : skill_, new()
     {
         if (toolType != typeof(Mini)) return null;
-        T newone = new T();
-        newone.link(this);
-        newone.load();
+        T newone = new T();newone.link(this); newone.load();
         return newone;
     }
+
     public T addcard   <T>() where T :card_, new()
     {
         if (toolType != typeof(Mini)) return null;
-        T newone = new T();
-        newone.link(this);
-        newone.load();
+        T newone = new T();newone.link(this);newone.load();
+
         return newone;
     }
     public card_ addcard(int n)
     {
         if (toolType != typeof(Mini)) return null;
-        card_ newone=creaater.creat_card(n);
-        newone.link(this);
-        newone.load();
+        card_ newone=creaater.creat_card(n);newone.link(this);newone.load();
+
         return newone;
     }
     public T addChange<T>() where T : change_, new()
     {
         if (GetType() != typeof(change_G)) return null;
-        T newone = new T();
-        newone.link(this);
-        newone.load();
+        T newone = new T();newone.link(this);newone.load();
+
         return newone;
     }
 

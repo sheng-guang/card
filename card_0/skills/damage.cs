@@ -7,8 +7,13 @@ public class skill_1_damage : skill_
 {
     public override void load()
     {
-        addSelf_For_call();
-        addHpChange<hp_change>(1, hp_change_K.ignore);
+        //addSelf_For_call();
+        //addHpChange<hp_change>(1, hp_change_K.ignore);
+    }
+
+    public override void run(Be target)
+    {
+
     }
 }
 public class hp_change : change_

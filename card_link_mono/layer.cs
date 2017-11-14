@@ -10,12 +10,12 @@ public enum layer_kind
 /// <summary>
 /// 可重写方法：fix()   load()
 /// </summary>
-public abstract class L_base : MonoBehaviour
+public abstract class layerBase : MonoBehaviour
 {
     public virtual layer_kind getT() { return layer_kind.N; }
-    public virtual HostU host() { return upone.host(); }
-    public virtual miniGU Group() { return upone.Group(); }
-    public virtual miniU mini() { return upone.mini(); }
+    public virtual Host host() { return upone.host(); }
+    public virtual miniG Group() { return upone.Group(); }
+    public virtual Mini mini() { return upone.mini(); }
     public layer_ID upone;
     public virtual void link(layer_ID b) {
         upone = b;
@@ -25,9 +25,9 @@ public abstract class L_base : MonoBehaviour
 
 
     public virtual void fixedUpDate() { }
-    public void outputchange(Call_ c) { }
+    //public void outputchange(Call_ c) { }
 }
-public abstract class layer_ID : L_base
+public abstract class layer_ID : layerBase
 {
     public int ID;
     public List<int> id_nextlevel;
@@ -39,11 +39,11 @@ public abstract class layer_ID : L_base
         {
             case layer_kind.miniG:
                 ID = host().next.NextGID;
-                host().IDgroup.Add(ID, (miniGU)this);
+                host().IDgroup.Add(ID, (miniG)this);
                 break;
             case layer_kind.mini:
                 ID = host().next.NextminiID;
-                host().IDmini.Add(ID, (miniU)this);
+                host().IDmini.Add(ID, (Mini)this);
                 break;
         }
         upone.id_nextlevel.Add(ID);
@@ -59,8 +59,8 @@ public abstract class layer_ID : L_base
         l.upone.id_nextlevel.Remove(l.ID);
     }
 
-    public miniGU findGroup(int id) { return host().IDgroup.ContainsKey(ID) ? host().IDgroup[ID] : null; }
-    public miniU findMini(int id) { return host().IDmini.ContainsKey(ID) ? host().IDmini[ID] : null; }
+    public miniG findGroup(int id) { return host().IDgroup.ContainsKey(ID) ? host().IDgroup[ID] : null; }
+    public Mini findMini(int id) { return host().IDmini.ContainsKey(ID) ? host().IDmini[ID] : null; }
 
     public bool ownNextOne(int id) { return id_nextlevel.Contains(id) ? true:false; }
 

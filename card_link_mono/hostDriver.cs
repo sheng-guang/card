@@ -5,12 +5,12 @@ using UnityEngine;
 public class hostDriver : MonoBehaviour {
 
 
-    public HostU newone;
+    public Host newone;
     public void newH()
     {
         onuse= Instantiate(newone);
     }
-    public HostU onuse;
+    public Host onuse;
 
     void FixedUpdate()
     {

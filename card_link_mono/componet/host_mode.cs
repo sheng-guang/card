@@ -103,15 +103,4 @@ public abstract class host_mode : layerBase {
     }
 
 }
-public class mode1 : host_mode
-{
-    public override void gameStart()
-    {
-        
-    }
 
-    public override void loadGame_waitLink()
-    {
-       
-    }
-}

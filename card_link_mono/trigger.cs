@@ -40,11 +40,11 @@ public abstract class Trigger_bycall:Trigger, ICall_receiver
     }
 }
 
-////被物理触发
-//public abstract class FixedTrigger : Trigger
-//{
+//被物理触发
+public abstract class fixedtrigger :Trigger
+{
 
-//}
+}
 
 public interface ICall_receiver
 {

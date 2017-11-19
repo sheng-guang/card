@@ -17,7 +17,7 @@ public class miniG : layerBase
     public bool ownMini(int id) { return id_minis.Contains(id) ? true : false; }
     public List<int> id_trigger;
     public bool ownTrigger(int id) { return id_trigger.Contains(id) ? true : false; }
-    //1移动main
+    //1
     //2用卡
     public void getorder(int which, order o)
     {
@@ -42,19 +42,6 @@ public class miniG : layerBase
     public cardG cards;
 }
 
-//卡组 触发器管理者
-public class cardG:cardUser
-{
-    public List<card_> fromMini = new List<card_>();
-    //手牌中的
-    public List<card_> OnHand = new List<card_>();
-
-    public void getorder(int which,order o) {
-        if (OnHand[which] == null) return;ToDocard = OnHand[which];
-        getDataToDo(o);
-    }
-    
-}
 
 public struct CardOnDesk
 {

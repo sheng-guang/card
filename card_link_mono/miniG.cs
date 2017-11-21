@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class miniG : layerBase
+public abstract class miniG : layerBase
 {
 
     public int ID;public override miniG player()  {    return this;}
@@ -53,16 +53,17 @@ public abstract class cardUser : Trigger
     //运行函数
     public bool getDataToDo(order o)
     {
-        if (loadTarget(o.miniID) == false) return false;
+        Mini to;
+        if ((to = loadTarget(o.miniID) )) return false; 
+        //对to询问:是否是卡牌目标
         if (TESTFei() == false) return false;
+        ToDocard.Target = to;
         return true;
     }
-    public virtual bool loadTarget(int ID)
+    
+    public virtual Mini loadTarget(int ID)
     {
-        Mini to = findMini(ID);
-        //对to询问:是否是卡牌目标
-        ToDocard.Target = to;
-        return ToDocard.Target == null ? false : true;
+        return findMini(ID);
     }
     public virtual bool TESTFei()
     { return false; }

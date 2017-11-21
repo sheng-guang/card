@@ -3,12 +3,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Host : layerBase
+public abstract class Host : layerBase
 {
-    public Host(int modeKind) {
+    //public Host(int modeKind) {
 
-        mode = ADDcomponet<mode1>();
-    }
+    //    mode = ADDcomponet<mode1>();
+    //}
     public override miniG player()  {  return null;  }  public override Mini mini()  {return null;}public override Trigger trigger() { return null; }
     public override Host host()  {   return this;  }
     public NextIDs next = new NextIDs();
@@ -18,7 +18,7 @@ public class Host : layerBase
     public Dictionary<int, Mini> IDmini = new Dictionary<int, Mini>();
     //public Dictionary<int, ICall_receiver> IDcallGetter = new Dictionary<int, ICall_receiver>();
     public Dictionary<int, Trigger> IDtrigger = new Dictionary<int, Trigger>();
-
+    public List<layerBase> fix = new List<layerBase>();
 }
 public class NextIDs
 {

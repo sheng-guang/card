@@ -12,8 +12,15 @@ public class hostDriver : MonoBehaviour {
     }
     public Host onuse;
 
+
+    public bool gameRun;
+
     void FixedUpdate()
     {
-        //if (onuse)onuse
+        if (gameRun && onuse) {
+            foreach (layerBase l in onuse.fix) {
+                l.fixedUpD();
+            }
+        }     
     }
 }

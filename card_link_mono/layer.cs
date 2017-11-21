@@ -36,8 +36,7 @@ public abstract class layerBase :MonoBehaviour
     public Mini findMini(int id) { return host().IDmini.ContainsKey(id) ? host().IDmini[id] : null; }
     public Trigger findTrig(int id) { return host().IDtrigger.ContainsKey(id) ? host().IDtrigger[id] : null; }
 
-    public virtual void fixedUpDate() { }
-
+    public virtual void fixedUpD() { }
 
 
 
@@ -47,6 +46,8 @@ public abstract class layerBase :MonoBehaviour
         T newone = new T();
         newone.link_GetID(this);return newone;
     }
+
+
     //host1
     //player2
     public T addplayer<T>() where T : miniG, new()

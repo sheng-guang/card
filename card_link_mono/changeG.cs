@@ -2,14 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-//改变队列-卡牌
-public abstract class card_ : changeG_
-{
-    public override card_ card() { return this; }
 
-    public abstract int fei { get; }
-    public abstract void decpmpose();
-}
 //单个改变
 public abstract class change_:layerBase
 {
@@ -25,6 +18,10 @@ public abstract class changeG_ : layerBase {
     public Mini Target;
 
     //---add---
+    public change_ addchange(change_ n)
+    {
+        list.Enqueue(n); return n;
+    }
     public T addchange<T>()where T : change_, new()
     {  T n = new T();n.link_GetID(this);
         list.Enqueue(n); return n; }

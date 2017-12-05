@@ -13,5 +13,16 @@ public abstract class Mini : layerBase {
        player().id_minis.Add(ID);
     }
 
+
+    public void becomeMini() { }
+    public void becomeCard() { }
     public Buffs buffList;
+}
+//改变队列-卡牌
+public abstract class card_ : changeG_
+{
+    public override card_ card() { return this; }
+
+    public abstract int fei { get; }
+    public abstract void decpmpose();
 }

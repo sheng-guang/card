@@ -16,3 +16,25 @@ public class cardG : cardUser
     }
 
 }
+
+//提供一个目标mini
+public abstract class cardUser : Trigger
+{
+    //运行函数
+    public bool getDataToDo(order o)
+    {
+        Mini to;
+        if ((to = loadTarget(o.miniID) )) return false; 
+        //对to询问:是否是卡牌目标
+        if (TESTFei() == false) return false;
+        ToDocard.Target = to;
+        return true;
+    }
+    
+    public virtual Mini loadTarget(int ID)
+    {
+        return findMini(ID);
+    }
+    public virtual bool TESTFei()
+    { return false; }
+}

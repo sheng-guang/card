@@ -57,11 +57,15 @@ public abstract class layerBase :MonoBehaviour
         newone.link_GetID(this); return newone;
     }
     //mini3
-    public T addminiBase<T>() where T : Mini, new()
+    public T addminiBase<T>(bool card) where T : Mini, new()
     {//由玩家创建
         if (player() == null||mini()!=null) return null;
         T newone = new T();
-        newone.link_GetID(this); return newone;
+        
+        newone.link_GetID(this);
+        if (card) mini().becomeCard();
+        else mini().becomeMini();
+        return newone;
     }
     //trigger4
     public T addtriggerBase<T>(bool forp) where T :Trigger, new()

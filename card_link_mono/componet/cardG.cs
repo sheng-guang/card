@@ -33,7 +33,7 @@ public abstract class cardUser : Trigger
     
     public virtual Mini loadTarget(int ID)
     {
-        return findMini(ID);
+        return beens.findMini(ID);
     }
     public virtual bool TESTFei()
     { return false; }

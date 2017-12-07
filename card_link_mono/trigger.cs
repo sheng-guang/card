@@ -11,7 +11,7 @@ using System.Text;
 //    public abstract int needinfo();
 //}
 //触发器基类
-public abstract class Trigger : layerBase
+public abstract class Trigger : layer_withID
 {
     public override Trigger trigger(){return this; }
     public bool forPlayer;
@@ -23,7 +23,7 @@ public abstract class Trigger : layerBase
     public card_ ToDocard;
     public virtual void beTrigged() { }
 }
-//被动触发器
+//1被动触发器
 public abstract class Trigger_bycall:Trigger, ICall_receiver
 {
     int ID; public  int ID_ { get { return ID; } set { ID = value; } }
@@ -40,7 +40,7 @@ public abstract class Trigger_bycall:Trigger, ICall_receiver
     }
 }
 
-//被物理触发
+//2被物理触发
 public abstract class fixedtrigger :Trigger
 {
 

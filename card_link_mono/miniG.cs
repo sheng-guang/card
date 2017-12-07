@@ -2,34 +2,34 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class miniG : layerBase
+public abstract class miniG : layer_withID
 {
-
-    public int ID;public override miniG player()  {    return this;}
+    public override miniG player()  {    return this;}
     public Mini main;
+
     public override void _GetIDload()
     {
-        ID = host().next.NextGID;host().IDgroup.Add(ID, this);
+        beens.Add(this);
         cards = addtriggerBase<cardG>(true);
     }
 
-    public List<int> id_minis;
-    public bool ownMini(int id) { return id_minis.Contains(id) ? true : false; }
-    public List<int> id_trigger;
-    public bool ownTrigger(int id) { return id_trigger.Contains(id) ? true : false; }
+   
     //1
     //2用卡
     public void getorder(int which, order o)
     {
-        
+        //判断距离 目标可用
     }
     //3组合分离
-    public void givecardTo(int where,int cardID,int trigID) { }
-
-    public void removeCardFrom(int cardID) {
-
+    public void givecardTo(int where,int cardID,int trigID)
+    {
+        //判断距离 锁定 给
     }
-    //4分解卡牌
+    //4移除
+    public void removeCardFrom(int cardID) {
+        //判断距离 锁定 拿出卡牌
+    }
+    //5分解卡牌
     public void decompose(int which) { }
     //public List<Trigger>triggers
     public cardG cards;

@@ -3,6 +3,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+//改变队列-卡牌
+public abstract class card_ : changeG_
+{
+    public override card_ card() { return this; }
+
+    public abstract int fei { get; }
+    public abstract void decpmpose();
+}
 //单个改变
 public abstract class change_:layerBase
 {

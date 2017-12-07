@@ -7,18 +7,24 @@ public enum layer_kind
     N,
     host,miniG,mini,
 }
+public abstract class layer_withID:layerBase
+{
+    public int ID;
+}
+
 /// <summary>
 /// 可重写方法：fix()   load()
 /// </summary>
 public abstract class layerBase :MonoBehaviour
 {
     public virtual Host host() { return upone.host(); }
-    //指定位置
+    //指定位置ID
     public virtual miniG player() { return upone.player(); }
-    //有位置 实体
+    //有位置 实体ID
     public virtual Mini mini() { return upone.mini(); }
-    //附着位置
+    //附着位置ID
     public virtual Trigger trigger() { return upone.trigger(); }
+
     public virtual card_ card() { return upone.card(); }
 
     public layerBase upone;
@@ -30,16 +36,17 @@ public abstract class layerBase :MonoBehaviour
         _GetIDload();
     }
     public virtual void _GetIDload() { }
-    public virtual void unlink() { }
 
-    public miniG findGroup(int id) { return host().IDgroup.ContainsKey(id) ? host().IDgroup[id] : null; }
-    public Mini findMini(int id) { return host().IDmini.ContainsKey(id) ? host().IDmini[id] : null; }
-    public Trigger findTrig(int id) { return host().IDtrigger.ContainsKey(id) ? host().IDtrigger[id] : null; }
+
+
+    public virtual void unlink() { }
+    public virtual void relink() { }
+
+    public IdGroup beens { get { return host().Beens; } }
+
+    //public void IDcheckIN(Mini m) { }
 
     public virtual void fixedUpD() { }
-
-
-
 
     public  T ADDcomponet<T>()where T : layerBase, new()
     {
@@ -63,8 +70,8 @@ public abstract class layerBase :MonoBehaviour
         T newone = new T();
         
         newone.link_GetID(this);
-        if (card) mini().becomeCard();
-        else mini().becomeMini();
+        //if (card) mini().becomeCard();
+        //else mini().becomeMini();
         return newone;
     }
     //trigger4

@@ -26,7 +26,7 @@ public abstract class Trigger : layer_withID
 //1被动触发器
 public abstract class Trigger_bycall:Trigger, ICall_receiver
 {
-    int ID; public  int ID_ { get { return ID; } set { ID = value; } }
+    public  int ID_ { get { return ID; } set { ID = value; } }
     public abstract change_k1 simpleKind { get; }
     public abstract int needinfo();
    //运行函数
@@ -46,14 +46,16 @@ public abstract class fixedtrigger :Trigger
 
 }
 
+
+//---------------------------------------------------------------------------------------
 public interface ICall_receiver
 {
     int ID_ { get; set; }
     change_k1 simpleKind { get; }
     int needinfo();
     void Get(Call_ p);
-    
 }
+
 public abstract class Call_
 {
     public Call_(Host h, bool after, bool add, change_k1 k)

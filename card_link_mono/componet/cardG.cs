@@ -3,38 +3,44 @@ using System.Collections.Generic;
 using UnityEngine;
 
 //卡组 触发器管理者
-public class cardG : cardUser
+public class cardG :layerBase
 {
-    public List<card_> from_Mini = new List<card_>();
-    //手牌中的
-    public List<card_> OnHand = new List<card_>();
+    public List<int> minis = new List<int>();
+    public List<int> triggers = new List<int>();
 
+    public Mini main;
+    //1获取卡牌
+    public void getmini(Mini m)
+    {
+
+    }
+    //2用卡
     public void getorder(int which, order o)
     {
-        if (OnHand[which] == null) return; ToDocard = OnHand[which];
-        getDataToDo(o);
+        //判断距离 目标可用
     }
-
+    //3组合分离
+    public void givecardTo(int where, int cardID, int trigID)
+    {
+        //判断距离 锁定 给
+    }
+    //4移除
+    public void removeCardFrom(int cardID)
+    {
+        //判断距离 锁定 拿出卡牌
+    }
+    //5分解卡牌
+    public void decompose(int which) { }
 }
 
-//提供一个目标mini
-public abstract class cardUser : Trigger
+
+public struct CardInDeck
 {
-    //运行函数
-    public bool getDataToDo(order o)
-    {
-        Mini to;
-        if ((to = loadTarget(o.miniID) )) return false; 
-        //对to询问:是否是卡牌目标
-        if (TESTFei() == false) return false;
-        ToDocard.Target = to;
-        return true;
-    }
-    
-    public virtual Mini loadTarget(int ID)
-    {
-        return beens.findMini(ID);
-    }
-    public virtual bool TESTFei()
-    { return false; }
+    public int ID;//为-1表示不存在
+}
+
+public class order
+{
+    public int miniID;
+    //Mini the;
 }

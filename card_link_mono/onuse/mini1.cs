@@ -5,9 +5,9 @@ using System.Text;
 
 public  class mini1:Mini
 {
-    public override void _GetIDload()
+    public override void _load()
     {
-        base._GetIDload();
+        base._load();
         Trigger t = addtriggerBase<Triggernewmini>(false);
         //t.ToDocard=
     }

@@ -10,7 +10,7 @@ public abstract  class buff_
     public abstract int  kind { get; }
     public void through(change_ change)
     {
-
+        
     }
 }
 public enum Buffkind

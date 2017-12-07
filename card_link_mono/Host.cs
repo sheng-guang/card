@@ -26,9 +26,9 @@ public class IdGroup
 {
 
     //+
-    public void Add(miniG p) { p.ID = NextGID;IDgroup.Add(p.ID, p); G_mini.Add(p, new List<int>()); G_trigger.Add(p, new List<int>()); }
-    public void Add(Mini m) { m.ID = NextminiID;IDmini.Add(m.ID, m);G_mini[m.player()].Add(m.ID); }
-    public void Add(Trigger t) { }
+    public void Add(miniG p) { p.ID = NextGID;IDgroup.Add(p.ID, p);  }
+    public void Add(Mini m) { m.ID = NextminiID;IDmini.Add(m.ID, m);m.player().cards.minis.Add(m.ID); }
+    public void Add(Trigger t) { t.ID = NextTriggerID;IDtrigger.Add(t.ID,t);t.player().cards.triggers.Add(t.ID); }
     //-
 
     //find
@@ -36,23 +36,57 @@ public class IdGroup
     public Mini findMini(int id) { return  IDmini.ContainsKey(id) ?  IDmini[id] : null; }
     public Trigger findTrig(int id) { return IDtrigger.ContainsKey(id) ? IDtrigger[id] : null; }
 
-    public bool findM_inG(miniG m,int id) {return  G_mini.ContainsKey(m) && G_mini[m].Contains(id)?  true:false; }
-    public bool findTr_inG(miniG m, int id) { return G_trigger.ContainsKey(m) && G_trigger[m].Contains(id) ? true : false; }
+    public bool findM_inG(miniG m,int id) {return  m.cards.minis.Contains(id)?  true:false; }
+    public bool findTr_inG(miniG m, int id) { return  m.cards.triggers.Contains(id) ? true : false; }
     //change
 
-
+    //clean
+    public void relink(Mini m,miniG p) { m.player().cards.minis.Remove(m.ID);}
+    public void relink(Trigger t, miniG p) { t.player().cards.triggers.Remove(t.ID); }
     //----------------------------------------------------------------------------
-    public int lastorder=0, lastPlayer=0, lastmini=0, lastTrigget=0;
-    public int NextGID { get { return ++lastPlayer; } }
-    public int NextminiID { get { return ++lastmini; } }
-    public int NextTriggerID { get { return ++lastmini; } }
+    int lastorder=0, lastPlayer=0, lastmini=0, lastTrigger=0;
+     int NextGID { get { return ++lastPlayer; } }
+     int NextminiID { get { return ++lastmini; } }
+     int NextTriggerID { get { return ++lastTrigger; } }
     //public int NextorderID { get { return ++lastorder; } }
 
-    public Dictionary<miniG, List<int>> G_mini = new Dictionary<miniG, List<int>>();
-    public Dictionary<miniG, List<int>> G_trigger = new Dictionary<miniG, List<int>>();
-    public Dictionary<int, miniG> IDgroup = new Dictionary<int, miniG>();
-    public Dictionary<int, Mini> IDmini = new Dictionary<int, Mini>();
+    //主列表
+     Dictionary<int, miniG> IDgroup = new Dictionary<int, miniG>();
+     Dictionary<int, Mini> IDmini = new Dictionary<int, Mini>();
     //public Dictionary<int, ICall_receiver> IDcallGetter = new Dictionary<int, ICall_receiver>();
-    public Dictionary<int, Trigger> IDtrigger = new Dictionary<int, Trigger>();
+     Dictionary<int, Trigger> IDtrigger = new Dictionary<int, Trigger>();
+    //副列表在mini里
+
+
+
+    //host1
+    //player2
+    public T addplayer<T>() where T : miniG, new()
+    {
+       
+        T newone = new T();
+        newone.link_GetID(this); return newone;
+    }
+    //mini3
+    public T addminiBase<T>(bool card) where T : Mini, new()
+    {//由玩家创建
+        
+        T newone = new T();
+
+        newone.link_GetID(this);
+        //if (card) mini().becomeCard();
+        //else mini().becomeMini();
+        return newone;
+    }
+    //trigger4
+    public T addtriggerBase<T>(bool forp) where T : Trigger, new()
+    {//由mini创建
+        if (trigger() != null || mini() == null) return null;
+        T newone = new T(); newone.forPlayer = forp;
+        newone.link_GetID(this); return newone;
+    }
+    //card5
+    //public void outputchange(Call_ c) { }
+
 
 }

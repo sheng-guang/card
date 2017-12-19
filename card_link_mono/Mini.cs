@@ -5,7 +5,7 @@ using UnityEngine;
 public abstract class Mini : layer_withID {
 
     public override Mini mini()  { return this;  }
-    public override void _load() {  }
+    public override void load_ForCreater() {  }
 
     private bool iscard;
     //变成卡牌的触发器里面是卡牌

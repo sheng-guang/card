@@ -5,7 +5,7 @@ using UnityEngine;
 public abstract class miniG : layer_withID
 {
     public override miniG player()  {    return this;}
-    public override void _load()
+    public override void load_ForCreater()
     {
         cards = ADDcomponet<cardG>();
     }

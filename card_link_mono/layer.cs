@@ -32,13 +32,14 @@ public abstract class layerBase :MonoBehaviour
     
 
 
-    public virtual void _load() { }
+    public virtual void load_ForCreater() { }
+    public virtual void link_ForBeens() { }
 
     public IdGroup beens { get { return host().Beens; } }
     public  T ADDcomponet<T>()where T : layerBase, new()
     {
         T newone = new T();
-        newone.upone = this;newone._load(); return newone;
+        newone.upone = this;newone.load_ForCreater(); return newone;
     }
 
     public virtual void fixedUpD() { }
